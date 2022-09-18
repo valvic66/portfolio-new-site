@@ -13,8 +13,13 @@
   },
   "dependencies": {
     "@prisma/client": "4.3.1",
+    "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.0.0",
     "gray-matter": "^4.0.3",
+    "iron-session": "^6.2.1",
     "next": "12.2.5",
     "nextjs-cors": "^2.1.1",
     "react": "18.2.0",
