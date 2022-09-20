@@ -59,14 +59,14 @@ export const Navbar = () => {
             }
           >
             <Link href="/">
-              <div>
+              <>
                 <Image
                   src="/static/images/logo.png"
                   alt="logo image"
                   width="90"
                   height="20"
                 />
-              </div>
+              </>
             </Link>
           </div>
           <div className="hidden md:flex">
@@ -97,7 +97,7 @@ export const Navbar = () => {
         <div className="flex justify-between items-center">
           <div className="ml-1 cursor-pointer">
             <Link href="/">
-              <div>
+              <>
                 <Image
                   src="/static/images/logo.png"
                   alt="logo image"
@@ -105,7 +105,7 @@ export const Navbar = () => {
                   height="20"
                   onClick={handleMenuClose}
                 />
-              </div>
+              </>
             </Link>
           </div>
         </div>
