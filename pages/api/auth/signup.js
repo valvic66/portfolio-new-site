@@ -27,12 +27,7 @@ const CreateUserMutation = gql`
 `;
 
 export default async function handler(req, res) {
-  const {
-    email = 'test@gmail.com',
-    password = 'Test_2022',
-    firstname = 'Vali',
-    lastname = 'Micu',
-  } = req.body;
+  const { email, password, firstname, lastname } = req.body;
 
   if (!email || !password) {
     res.status(400).end();
