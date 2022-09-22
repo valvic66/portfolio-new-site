@@ -17,8 +17,8 @@ const client = new GraphQLClient(GRAPHCMS_URL, {
 });
 
 const cookie = {
-  cookieName: process.env.COOKIE_NAME,
-  password: process.env.COOKIE_PASSWORD,
+  cookieName: COOKIE_NAME,
+  password: COOKIE_PASSWORD,
   cookieOptions: { secure: process.env.NODE_ENV === 'production' },
 };
 
@@ -47,7 +47,7 @@ const UpdateUserMutation = gql`
 `;
 
 export default withIronSessionApiRoute(async function handler(req, res) {
-  const { password = 'Test_2022', email = 'test@gmail.com' } = req.body;
+  const { password = '1234', email = 'test@test.com' } = req.body;
 
   if (!email || !password) {
     res.status(400).end();
@@ -55,7 +55,7 @@ export default withIronSessionApiRoute(async function handler(req, res) {
 
   // compare the password from user with password from db
   const userData = await client.request(getUserByEmailQuery, {
-    email: 'test@gmail.com',
+    email,
   });
   console.log({ userData });
 

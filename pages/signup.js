@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+// implement Formik later
 export default function Signup() {
   const [userData, setUserData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +29,7 @@ export default function Signup() {
         return;
       }
 
-      setUserData({ email: '', password: '' });
+      // setUserData({ email: '', password: '' });
     } catch (err) {
       console.log('Some error occured during signing up: ', err);
     } finally {
