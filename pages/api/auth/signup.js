@@ -1,30 +1,10 @@
 import { gql, GraphQLClient } from 'graphql-request';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { CreateUserMutation } from '../../../lib/queries';
 
-const {
-  GRAPHCMS_URL,
-  GRAPHCMS_PERMANENTAUTH_TOKEN,
-  JWT_SECRET,
-  JWT_EXPIRES_IN,
-} = process.env;
-const client = new GraphQLClient(GRAPHCMS_URL, {
-  // headers: {
-  //   Authorization: `Bearer ${GRAPHCMS_PERMANENTAUTH_TOKEN}`,
-  // },
-});
-
-const CreateUserMutation = gql`
-  mutation CreateUser($newUserData: UserModelCreateInput!) {
-    createUserModel(data: $newUserData) {
-      email
-      password
-      firstname
-      lastname
-      token
-    }
-  }
-`;
+const { GRAPHCMS_URL, JWT_SECRET, JWT_EXPIRES_IN } = process.env;
+const client = new GraphQLClient(GRAPHCMS_URL);
 
 export default async function handler(req, res) {
   const { email, password, firstname, lastname } = req.body;

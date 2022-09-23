@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { storeToLocalStorage } from '../lib/common';
 import Router from 'next/router';
 import { APP_ROUTES } from '../utils/routes';
+import { storeToLocalStorage } from '../lib/useAuthentication';
 
 export default function Signin() {
   const [userData, setUserData] = useState({ email: '', password: '' });
@@ -49,7 +49,7 @@ export default function Signin() {
       [event.target.name]: event.target.value,
     });
   };
-  console.log({ userData });
+
   return (
     <div className="pt-20 w-full max-w-xs mx-auto">
       <form

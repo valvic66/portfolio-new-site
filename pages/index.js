@@ -4,8 +4,20 @@ import { Skills } from '../components/Skills';
 import { Projects } from '../components/Projects';
 import { About } from '../components/About';
 import { Contact } from '../components/Contact';
+import useAuthentication from '../lib/useAuthentication';
 
-export default function Home() {
+function Home() {
+  const { authenticated } = useAuthentication();
+  console.log({ authenticated });
+
+  if (!authenticated) {
+    return (
+      <div className="flex w-full h-screen justify-center items-center">
+        <div className=" pt-20 ml-2 w-8 h-8 border-l-2 rounded-full animate-spin border-blue-900" />
+      </div>
+    );
+  }
+
   return (
     <div>
       <Head>
@@ -20,3 +32,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;

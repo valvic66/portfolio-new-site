@@ -1,52 +1,12 @@
-import { gql, GraphQLClient } from 'graphql-request';
+import { GraphQLClient } from 'graphql-request';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { withIronSessionApiRoute } from 'iron-session/next';
+import { getUserByEmailQuery, UpdateUserMutation } from '../../../lib/queries';
 
-const {
-  JWT_SECRET,
-  GRAPHCMS_URL,
-  JWT_EXPIRES_IN,
-  COOKIE_NAME,
-  COOKIE_PASSWORD,
-} = process.env;
-const client = new GraphQLClient(GRAPHCMS_URL, {
-  // headers: {
-  //   Authorization: `Bearer ${GRAPHCMS_PERMANENTAUTH_TOKEN}`,
-  // },
-});
+const { JWT_SECRET, GRAPHCMS_URL, JWT_EXPIRES_IN } = process.env;
+const client = new GraphQLClient(GRAPHCMS_URL);
 
-const cookie = {
-  cookieName: COOKIE_NAME,
-  password: COOKIE_PASSWORD,
-  cookieOptions: { secure: process.env.NODE_ENV === 'production' },
-};
-
-const getUserByEmailQuery = gql`
-  query getUserByEmailQuery($email: String!) {
-    userModel(where: { email: $email }, stage: DRAFT) {
-      email
-      password
-      firstname
-      lastname
-      token
-    }
-  }
-`;
-
-const UpdateUserMutation = gql`
-  mutation UpdateUser(
-    $where: UserModelWhereUniqueInput!
-    $data: UserModelUpdateInput!
-  ) {
-    updateUserModel(where: $where, data: $data) {
-      token
-      email
-    }
-  }
-`;
-
-export default withIronSessionApiRoute(async function handler(req, res) {
+export default async function handler(req, res) {
   const { password = '1234', email = 'test@test.com' } = req.body;
 
   if (!email || !password) {
@@ -89,15 +49,5 @@ export default withIronSessionApiRoute(async function handler(req, res) {
     return;
   }
 
-  console.log({ updateUserModel });
-
-  // store it inside the request session storage
-  // return it back to the client
-
-  req.session.user = {
-    token: updateUserModel.token,
-  };
-  await req.session.save();
-
   return res.status(200).json({ token: updateUserModel.token });
-}, cookie);
+}
