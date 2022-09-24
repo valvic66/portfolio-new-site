@@ -13,11 +13,9 @@ export default async function handler(req, res) {
     res.status(400).end();
   }
 
-  // compare the password from user with password from db
   const userData = await client.request(getUserByEmailQuery, {
     email,
   });
-  console.log({ userData });
 
   if (!userData) {
     console.log('no user');

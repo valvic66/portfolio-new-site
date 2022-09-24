@@ -7,8 +7,7 @@ import { Contact } from '../components/Contact';
 import useAuthentication from '../lib/useAuthentication';
 
 function Home() {
-  const { authenticated } = useAuthentication();
-  console.log({ authenticated });
+  const { authenticated = false, user = {} } = useAuthentication();
 
   if (!authenticated) {
     return (
