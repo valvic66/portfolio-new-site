@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-export const MenuItem = ({ path, label, type, onClick, className }) => {
+export const MenuItem = ({ path, label, type, onClick, className, active }) => {
   let finalPath;
 
   switch (type) {
@@ -15,11 +15,11 @@ export const MenuItem = ({ path, label, type, onClick, className }) => {
       break;
   }
 
-  return (
+  return active ? (
     <Link href={finalPath}>
       <li onClick={onClick} className={className}>
         {label}
       </li>
     </Link>
-  );
+  ) : null;
 };

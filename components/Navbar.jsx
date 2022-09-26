@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Hamburger } from './Hamburger';
 import { MediaIcons } from './MediaIcons';
-import { NAVBAR_HEIGHT, MENU_ITEMS } from '../constants/navbar';
+import {
+  NAVBAR_HEIGHT,
+  MENU_ITEMS,
+  AUTH_MENU_ITEMS,
+} from '../constants/navbar';
 import { useScrollLock } from '../hooks/scrollLock';
 import { MenuItem } from './MenuItem';
 import { main } from '../constants/main';
+import { IS_AUTH_ENABLED } from '../constants/env';
+import Router from 'next/router';
 
-export const Navbar = () => {
+export const Navbar = ({ isAuthenticated }) => {
   const [isNavVisible, setNavVisibility] = useState(false);
   const [isShadowVisible, setShadowVisibility] = useState(false);
   const { lockScroll, unlockScroll } = useScrollLock();
@@ -36,12 +41,20 @@ export const Navbar = () => {
   const handleMenuToggle = (event) => {
     event.stopPropagation;
     setNavVisibility(!isNavVisible);
+    Router.push('/');
   };
 
   const handleMenuClose = (event) => {
     event.stopPropagation;
     setNavVisibility(false);
   };
+
+  // to be moved in a reusable component that maps all the menu items
+  const dynamicAuthItems = isAuthenticated
+    ? AUTH_MENU_ITEMS.filter(
+        (authItem) => !['login', 'signup'].includes(authItem.path)
+      )
+    : AUTH_MENU_ITEMS.filter((authItem) => !['logout'].includes(authItem.path));
 
   return (
     <>
@@ -58,21 +71,19 @@ export const Navbar = () => {
               !isNavVisible ? 'pl-2 pt-0.5 cursor-pointer' : 'invisible'
             }
           >
-            <Link href="/">
-              <>
-                <Image
-                  src="/static/images/logo.png"
-                  alt="logo image"
-                  width="90"
-                  height="20"
-                />
-              </>
-            </Link>
+            <Image
+              src="/static/images/logo.png"
+              alt="logo image"
+              width="90"
+              height="20"
+              onClick={() => Router.push('/')}
+            />
           </div>
           <div className="hidden md:flex">
             {MENU_ITEMS.map((menuItem, key) => (
               <MenuItem
                 key={key}
+                active={menuItem.active}
                 path={menuItem.path}
                 type={menuItem.type}
                 label={menuItem.label}
@@ -80,6 +91,21 @@ export const Navbar = () => {
                 className="px-3 text-sm uppercase list-none"
               />
             ))}
+            {IS_AUTH_ENABLED && (
+              <>
+                {dynamicAuthItems.map((menuItem, key) => (
+                  <MenuItem
+                    key={key}
+                    active={menuItem.active}
+                    path={menuItem.path}
+                    type={menuItem.type}
+                    label={menuItem.label}
+                    onClick={handleMenuClose}
+                    className="px-3 text-sm uppercase list-none"
+                  />
+                ))}
+              </>
+            )}
           </div>
           <div className="md:hidden cursor-pointer">
             <Hamburger isNavVisible={isNavVisible} onClick={handleMenuToggle} />
@@ -96,17 +122,13 @@ export const Navbar = () => {
       >
         <div className="flex justify-between items-center">
           <div className="ml-1 cursor-pointer">
-            <Link href="/">
-              <>
-                <Image
-                  src="/static/images/logo.png"
-                  alt="logo image"
-                  width="90"
-                  height="20"
-                  onClick={handleMenuClose}
-                />
-              </>
-            </Link>
+            <Image
+              src="/static/images/logo.png"
+              alt="logo image"
+              width="90"
+              height="20"
+              onClick={handleMenuClose}
+            />
           </div>
         </div>
         <div className="border-b border-gray-300 my-2">
@@ -116,9 +138,10 @@ export const Navbar = () => {
         </div>
         <div className="py-4">
           <ul>
-            {MENU_ITEMS.map((menuItem, key) => (
+            {MENU_ITEMS?.map((menuItem, key) => (
               <MenuItem
                 key={key}
+                active={menuItem.active}
                 path={menuItem.path}
                 type={menuItem.type}
                 label={menuItem.label}
@@ -126,6 +149,21 @@ export const Navbar = () => {
                 onClick={handleMenuClose}
               />
             ))}
+            {IS_AUTH_ENABLED && (
+              <>
+                {dynamicAuthItems.map((menuItem, key) => (
+                  <MenuItem
+                    key={key}
+                    active={menuItem.active}
+                    path={menuItem.path}
+                    type={menuItem.type}
+                    label={menuItem.label}
+                    onClick={handleMenuClose}
+                    className="text-md py-3 hover:text-blue-600 uppercase list-none"
+                  />
+                ))}
+              </>
+            )}
           </ul>
           <div className="absolute top-[80%] landscape:hidden">
             <p className="pb-3 text-xs uppercase text-gray-500">
