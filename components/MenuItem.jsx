@@ -15,6 +15,14 @@ export const MenuItem = ({ path, label, type, onClick, className, active }) => {
       break;
   }
 
+  if (!path) {
+    return (
+      <li onClick={onClick} className={className}>
+        {label}
+      </li>
+    );
+  }
+
   return active ? (
     <Link href={finalPath}>
       <li onClick={onClick} className={className}>

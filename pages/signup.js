@@ -1,27 +1,31 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import { API_ROUTES, APP_ROUTES } from '../constants/routes';
+import { storeToLocalStorage } from '../utils';
+import { useRouter } from 'next/router';
 
 // implement Formik later
 export default function Signup() {
   const [userData, setUserData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const signUp = async (e) => {
     e.preventDefault();
 
-    const { email, password } = userData;
+    const { email, password, firstname, lastname } = userData;
 
     try {
       setIsLoading(true);
       const response = await axios({
         method: 'post',
-        url: '/api/auth/signup',
+        url: API_ROUTES.SIGN_UP,
         data: {
           email,
           password,
-          firstname: 'Vali',
-          lastname: 'Micu',
+          firstname,
+          lastname,
         },
       });
 
@@ -30,7 +34,14 @@ export default function Signup() {
         return;
       }
 
-      // setUserData({ email: '', password: '' });
+      storeToLocalStorage('token', response.data.token);
+      storeToLocalStorage(
+        'user',
+        JSON.stringify({ email, password, firstname, lastname })
+      );
+
+      router.push(APP_ROUTES.HOME);
+      setUserData({ email: '', password: '' });
     } catch (err) {
       console.log('Some error occured during signing up: ', err);
     } finally {
@@ -105,7 +116,7 @@ export default function Signup() {
           <p className="block text-gray-700 text-sm font-bold p-5">
             Go to login page
           </p>
-          <Link href="\signin">
+          <Link href="/signin">
             <li className=" text-blue-800 text-base list-none underline">
               Login
             </li>

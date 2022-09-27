@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Router from 'next/router';
-import { APP_ROUTES } from '../utils/routes';
-import { storeToLocalStorage } from '../lib/useAuthentication';
+import { useRouter } from 'next/router';
+import { API_ROUTES, APP_ROUTES } from '../constants/routes';
+import { storeToLocalStorage } from '../utils';
 import Link from 'next/link';
 
 export default function Signin() {
   const [userData, setUserData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const signIn = async (e) => {
     e.preventDefault();
 
-    const { email, password } = userData;
+    const { email, password, firstname, lastname } = userData;
 
     try {
       setIsLoading(true);
       const response = await axios({
         method: 'post',
-        url: '/api/auth/signin',
+        url: API_ROUTES.SIGN_IN,
         data: {
           email,
           password,
-          firstname: 'Vali',
-          lastname: 'Micu',
+          firstname,
+          lastname,
         },
       });
 
@@ -33,8 +34,12 @@ export default function Signin() {
       }
 
       storeToLocalStorage('token', response.data.token);
-      Router.push(APP_ROUTES.HOME);
-      // setUserData({ email: '', password: '' });
+      storeToLocalStorage(
+        'user',
+        JSON.stringify({ email, password, firstname, lastname })
+      );
+      router.push(APP_ROUTES.HOME);
+      setUserData({ email: '', password: '' });
     } catch (err) {
       console.log('Some error occured during signing in: ', err);
     } finally {
@@ -109,8 +114,10 @@ export default function Signin() {
           <p className="block text-gray-700 text-sm font-bold p-5">
             Go to sign up page
           </p>
-          <Link href="\signup">
-            <li className=" text-blue-800 text-base list-none underline">Signup</li>
+          <Link href="/signup">
+            <li className=" text-blue-800 text-base list-none underline">
+              Signup
+            </li>
           </Link>
         </div>
       </div>

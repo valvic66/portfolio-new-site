@@ -15,3 +15,19 @@ export const toBase64 = (str) =>
   typeof window === 'undefined'
     ? Buffer.from(str).toString('base64')
     : window.btoa(str);
+
+export const storeToLocalStorage = (name, value) => {
+  localStorage.setItem(name, value);
+};
+
+export const getFromLocalStorage = (name) => {
+  if (typeof name === 'object') {
+    return JSON.parse(localStorage.getItem(name));
+  }
+
+  return localStorage.getItem(name);
+};
+
+export const removeFromLocalStorage = (name) => {
+  localStorage.removeItem(name);
+};

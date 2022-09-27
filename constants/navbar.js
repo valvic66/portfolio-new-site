@@ -10,7 +10,7 @@ export const MENU_ITEMS = [
 ];
 
 export const AUTH_MENU_ITEMS = [
-  { path: 'login', label: 'Login', type: 'page', active: true },
+  { path: 'signin', label: 'Login', type: 'page', active: true },
   { path: 'signup', label: 'Signup', type: 'page', active: true },
-  { path: 'logout', label: 'Logout', type: 'page', active: true },
-];
+  { label: 'Logout', type: 'page', active: true },
+]

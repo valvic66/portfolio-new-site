@@ -12,11 +12,15 @@ import { MenuItem } from './MenuItem';
 import { main } from '../constants/main';
 import { IS_AUTH_ENABLED } from '../constants/env';
 import Router from 'next/router';
+import { removeFromLocalStorage } from '../utils';
+import useAuth from '../store';
 
-export const Navbar = ({ isAuthenticated }) => {
+export const Navbar = ({ authenticated }) => {
   const [isNavVisible, setNavVisibility] = useState(false);
   const [isShadowVisible, setShadowVisibility] = useState(false);
   const { lockScroll, unlockScroll } = useScrollLock();
+  const clearToken = useAuth((state) => state.clearToken);
+  const clearUser = useAuth((state) => state.clearUser);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -47,14 +51,28 @@ export const Navbar = ({ isAuthenticated }) => {
   const handleMenuClose = (event) => {
     event.stopPropagation;
     setNavVisibility(false);
+
+    const menuText = event?.target?.outerText;
+    switch (menuText) {
+      case 'LOGOUT':
+        removeFromLocalStorage('token');
+        removeFromLocalStorage('user');
+        clearToken();
+        clearUser();
+        Router.push('/');
+        break;
+
+      default:
+        break;
+    }
   };
 
   // to be moved in a reusable component that maps all the menu items
-  const dynamicAuthItems = isAuthenticated
-    ? AUTH_MENU_ITEMS.filter(
-        (authItem) => !['login', 'signup'].includes(authItem.path)
-      )
-    : AUTH_MENU_ITEMS.filter((authItem) => !['logout'].includes(authItem.path));
+  const dynamicAuthItems =
+    authenticated &&
+    AUTH_MENU_ITEMS.filter(
+      (authItem) => !['Login', 'Signup'].includes(authItem.label)
+    );
 
   return (
     <>
