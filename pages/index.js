@@ -10,6 +10,7 @@ import useAuth from '../store';
 import { getFromLocalStorage } from '../utils';
 import { useRouter } from 'next/router';
 import { APP_ROUTES } from '../constants/routes';
+import { IS_AUTH_ENABLED } from '../constants/env';
 
 function Home() {
   const router = useRouter();
@@ -23,15 +24,17 @@ function Home() {
     const token = getFromLocalStorage('token');
     const user = getFromLocalStorage('user');
 
-    if (token && user) {
-      saveToken(token);
-      saveUser(user);
-    } else {
-      router.push(APP_ROUTES.SIGN_IN);
+    if (IS_AUTH_ENABLED) {
+      if (token && user) {
+        saveToken(token);
+        saveUser(user);
+      } else {
+        router.push(APP_ROUTES.SIGN_IN);
+      }
     }
   }, [user, token]);
 
-  if (!authenticated) {
+  if (IS_AUTH_ENABLED && !authenticated) {
     return (
       <div className="flex w-full h-screen justify-center items-center">
         <div className=" pt-20 ml-2 w-8 h-8 border-l-2 rounded-full animate-spin border-blue-900" />

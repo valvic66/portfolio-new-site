@@ -45,7 +45,6 @@ export const Navbar = ({ authenticated }) => {
   const handleMenuToggle = (event) => {
     event.stopPropagation;
     setNavVisibility(!isNavVisible);
-    Router.push('/');
   };
 
   const handleMenuClose = (event) => {
@@ -62,6 +61,9 @@ export const Navbar = ({ authenticated }) => {
         Router.push('/');
         break;
 
+      case 'HOME':
+        Router.push('/');
+        break;
       default:
         break;
     }
