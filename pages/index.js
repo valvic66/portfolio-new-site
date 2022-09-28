@@ -21,17 +21,19 @@ function Home() {
   const saveUser = useAuth((state) => state.setUser);
 
   useEffect(() => {
-    const token = getFromLocalStorage('token');
-    const user = getFromLocalStorage('user');
+    const checkAuth = () => {
+      const token = getFromLocalStorage('token');
+      const user = getFromLocalStorage('user');
 
-    if (IS_AUTH_ENABLED) {
       if (token && user) {
         saveToken(token);
         saveUser(user);
       } else {
         router.push(APP_ROUTES.SIGN_IN);
       }
-    }
+    };
+
+    IS_AUTH_ENABLED && checkAuth();
   }, [user, token]);
 
   if (IS_AUTH_ENABLED && !authenticated) {

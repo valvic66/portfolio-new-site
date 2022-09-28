@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   const { email, password, firstname, lastname } = req.body;
 
   if (!email || !password) {
-    res.status(400).end();
+    return res.status(400).json({ error: 'Please provide email and password' });
   }
 
   const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
@@ -24,10 +24,12 @@ export default async function handler(req, res) {
     lastname,
   };
 
-  const response = await client.request(CreateUserMutation, { newUserData });
-
-  if (!response?.createUserModel?.id) {
-    res.status(500);
+  try {
+    const response = await client.request(CreateUserMutation, { newUserData });
+  } catch {
+    return res
+      .status(500)
+      .json({ error: 'User already exists, please sign in' });
   }
 
   res.status(200).json({ token });

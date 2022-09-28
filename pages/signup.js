@@ -9,10 +9,12 @@ import { useRouter } from 'next/router';
 export default function Signup() {
   const [userData, setUserData] = useState({ email: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
   const router = useRouter();
 
   const signUp = async (e) => {
     e.preventDefault();
+    setError('');
 
     const { email, password, firstname, lastname } = userData;
 
@@ -29,21 +31,16 @@ export default function Signup() {
         },
       });
 
-      if (!response?.data?.token) {
-        console.log('Something went wrong during signing up: ', response);
-        return;
-      }
-
       storeToLocalStorage('token', response.data.token);
       storeToLocalStorage(
         'user',
         JSON.stringify({ email, password, firstname, lastname })
       );
 
-      router.push(APP_ROUTES.HOME);
       setUserData({ email: '', password: '' });
-    } catch (err) {
-      console.log('Some error occured during signing up: ', err);
+      router.push(APP_ROUTES.HOME);
+    } catch (error) {
+      setError(error?.response?.data?.error);
     } finally {
       setIsLoading(false);
     }
@@ -112,6 +109,7 @@ export default function Signup() {
             Sign up
           </button>
         </form>
+        {error && <p className="text-red-600 text-xs pt-2">{error}</p>}
         <div className="flex items-center justify-evenly">
           <p className="block text-gray-700 text-sm font-bold p-5">
             Go to login page
