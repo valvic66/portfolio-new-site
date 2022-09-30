@@ -53,7 +53,7 @@ export const Navbar = ({ authenticated }) => {
 
     const menuText = event?.target?.outerText;
     switch (menuText) {
-      case 'LOGOUT':
+      case 'SIGNOUT':
         removeFromLocalStorage('token');
         removeFromLocalStorage('user');
         clearToken();
@@ -73,7 +73,7 @@ export const Navbar = ({ authenticated }) => {
   const dynamicAuthItems =
     authenticated &&
     AUTH_MENU_ITEMS.filter(
-      (authItem) => !['Login', 'Signup'].includes(authItem.label)
+      (authItem) => !['Signin', 'Signup'].includes(authItem.label)
     );
 
   return (
