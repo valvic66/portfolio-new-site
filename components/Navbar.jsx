@@ -14,6 +14,7 @@ import { IS_AUTH_ENABLED } from '../constants/env';
 import Router from 'next/router';
 import { removeFromLocalStorage } from '../utils';
 import useAuth from '../store';
+import { APP_ROUTES } from '../constants/routes';
 
 export const Navbar = ({ authenticated }) => {
   const [isNavVisible, setNavVisibility] = useState(false);
@@ -58,11 +59,10 @@ export const Navbar = ({ authenticated }) => {
         removeFromLocalStorage('user');
         clearToken();
         clearUser();
-        Router.push('/');
+        Router.push(APP_ROUTES.SIGN_IN);
         break;
-
       case 'HOME':
-        Router.push('/');
+        Router.push(APP_ROUTES.HOME);
         break;
       default:
         break;

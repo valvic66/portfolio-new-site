@@ -7,10 +7,10 @@ import { About } from '../components/About';
 import { Contact } from '../components/Contact';
 import { Navbar } from '../components/Navbar';
 import useAuth from '../store';
-import { getFromLocalStorage } from '../utils';
 import { useRouter } from 'next/router';
 import { APP_ROUTES } from '../constants/routes';
 import { IS_AUTH_ENABLED } from '../constants/env';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function Home() {
   const router = useRouter();
@@ -19,22 +19,21 @@ function Home() {
   const authenticated = !!(token && user);
   const saveToken = useAuth((state) => state.setToken);
   const saveUser = useAuth((state) => state.setUser);
+  const [_token, setToken] = useLocalStorage('token', '');
+  const [_user, setUser] = useLocalStorage('user', {});
 
   useEffect(() => {
     const checkAuth = () => {
-      const token = getFromLocalStorage('token');
-      const user = getFromLocalStorage('user');
-
-      if (token && user) {
-        saveToken(token);
-        saveUser(user);
+      if (_token && _user) {
+        saveToken(_token);
+        saveUser(_user);
       } else {
         router.push(APP_ROUTES.SIGN_IN);
       }
     };
 
     IS_AUTH_ENABLED && checkAuth();
-  }, [user, token]);
+  }, []);
 
   if (IS_AUTH_ENABLED && !authenticated) {
     return (

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { API_ROUTES, APP_ROUTES } from '../constants/routes';
-import { storeToLocalStorage } from '../utils';
 import { useRouter } from 'next/router';
 import { Sign } from '../components/Sign';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
   const router = useRouter();
+  const [token, setToken] = useLocalStorage('token', '');
+  const [uuser, setUser] = useLocalStorage('user', {});
 
   const signUp = async (values) => {
     const { email, password } = values;
@@ -25,8 +27,8 @@ export default function Signup() {
         },
       });
 
-      storeToLocalStorage('token', response.data.token);
-      storeToLocalStorage('user', JSON.stringify({ email, password }));
+      setToken(response.data.token);
+      setUser({ email, password });
 
       router.push(APP_ROUTES.HOME);
     } catch (error) {
