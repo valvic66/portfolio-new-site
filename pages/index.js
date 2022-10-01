@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { Main } from '../components/Main';
 import { Skills } from '../components/Skills';
@@ -14,19 +14,18 @@ import useLocalStorage from '../hooks/useLocalStorage';
 
 function Home() {
   const router = useRouter();
-  const token = useAuth((state) => state.token);
-  const user = useAuth((state) => state.user);
-  const authenticated = !!(token && user);
   const saveToken = useAuth((state) => state.setToken);
   const saveUser = useAuth((state) => state.setUser);
-  const [_token, setToken] = useLocalStorage('token', '');
-  const [_user, setUser] = useLocalStorage('user', {});
+  const [token, setToken] = useLocalStorage('token', '');
+  const [user, setUser] = useLocalStorage('user', {});
+  const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
     const checkAuth = () => {
-      if (_token && _user) {
-        saveToken(_token);
-        saveUser(_user);
+      if (token && user) {
+        saveToken(token);
+        saveUser(user);
+        setAuthenticated(true);
       } else {
         router.push(APP_ROUTES.SIGN_IN);
       }
