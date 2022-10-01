@@ -9,7 +9,7 @@ import { CgPerformance } from 'react-icons/cg';
 import { GrGraphQl } from 'react-icons/gr';
 import { AiOutlineApi } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
-import { useIntersection } from '../hooks/inView';
+import { useIntersection } from '../hooks/useIntersection';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 import { RoughNotationGroup } from 'react-rough-notation';
 import { intersectionOptions } from '../constants';

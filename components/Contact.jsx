@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import { RoughNotationGroup } from 'react-rough-notation';
 import { intersectionOptions } from '../constants';
 import { contact } from '../constants/contact';
-import { useIntersection } from '../hooks/inView';
+import { useIntersection } from '../hooks/useIntersection';
 import { MediaIcons } from './MediaIcons';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 import { shimmer, toBase64 } from '../utils';

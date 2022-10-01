@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { RoughNotationGroup } from 'react-rough-notation';
 import { intersectionOptions, MY_NAME } from '../constants';
 import { main } from '../constants/main';
-import { useIntersection } from '../hooks/inView';
+import { useIntersection } from '../hooks/useIntersection';
 import { MediaIcons } from './MediaIcons';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 

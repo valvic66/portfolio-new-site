@@ -7,7 +7,7 @@ import {
   MENU_ITEMS,
   AUTH_MENU_ITEMS,
 } from '../constants/navbar';
-import { useScrollLock } from '../hooks/scrollLock';
+import { useScrollLock } from '../hooks/useScrollLock';
 import { MenuItem } from './MenuItem';
 import { main } from '../constants/main';
 import { IS_AUTH_ENABLED } from '../constants/env';

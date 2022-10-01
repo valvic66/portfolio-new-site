@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 import { RoughNotationGroup } from 'react-rough-notation';
-import { useIntersection } from '../hooks/inView';
+import { useIntersection } from '../hooks/useIntersection';
 import { about } from '../constants/about';
 import { intersectionOptions } from '../constants';
 import { shimmer, toBase64 } from '../utils';

@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { RoughNotationGroup } from 'react-rough-notation';
 import { intersectionOptions } from '../constants';
 import { MOCKED_PROJECTS } from '../constants/projects';
-import { useIntersection } from '../hooks/inView';
+import { useIntersection } from '../hooks/useIntersection';
 import { ProjectCard } from './ProjectCard';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 
