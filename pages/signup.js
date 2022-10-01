@@ -3,7 +3,7 @@ import axios from 'axios';
 import { API_ROUTES, APP_ROUTES } from '../constants/routes';
 import { useRouter } from 'next/router';
 import { Sign } from '../components/Sign';
-import useLocalStorage from '../hooks/useLocalStorage';
+import { useLocalStorage } from 'react-use';
 
 export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);

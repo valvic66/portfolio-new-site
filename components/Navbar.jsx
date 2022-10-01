@@ -12,7 +12,7 @@ import { MenuItem } from './MenuItem';
 import { main } from '../constants/main';
 import { IS_AUTH_ENABLED } from '../constants/env';
 import Router from 'next/router';
-import { removeFromLocalStorage } from '../utils';
+import { useLocalStorage } from 'react-use';
 import useAuth from '../store';
 import { APP_ROUTES } from '../constants/routes';
 
@@ -22,6 +22,8 @@ export const Navbar = ({ authenticated }) => {
   const { lockScroll, unlockScroll } = useScrollLock();
   const clearToken = useAuth((state) => state.clearToken);
   const clearUser = useAuth((state) => state.clearUser);
+  const [token, setToken, removeToken] = useLocalStorage('token', '');
+  const [uuser, setUser, removeUser] = useLocalStorage('user', {});
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,8 +57,8 @@ export const Navbar = ({ authenticated }) => {
     const menuText = event?.target?.outerText;
     switch (menuText) {
       case 'SIGNOUT':
-        removeFromLocalStorage('token');
-        removeFromLocalStorage('user');
+        removeToken();
+        removeUser();
         clearToken();
         clearUser();
         Router.push(APP_ROUTES.SIGN_IN);

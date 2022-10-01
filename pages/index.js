@@ -10,7 +10,7 @@ import useAuth from '../store';
 import { useRouter } from 'next/router';
 import { APP_ROUTES } from '../constants/routes';
 import { IS_AUTH_ENABLED } from '../constants/env';
-import useLocalStorage from '../hooks/useLocalStorage';
+import { useLocalStorage } from 'react-use';
 
 function Home() {
   const router = useRouter();
