@@ -32,7 +32,7 @@ function Home() {
     };
 
     IS_AUTH_ENABLED && checkAuth();
-  }, []);
+  }, [router, setToken, setUser, token, user]);
 
   if (IS_AUTH_ENABLED && !authenticated) {
     return (

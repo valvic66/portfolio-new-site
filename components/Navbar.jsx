@@ -23,11 +23,7 @@ export const Navbar = ({ authenticated }) => {
   const [token, setToken, removeToken] = useLocalStorage('token', '');
   const [user, setUser, removeUser] = useLocalStorage('user', {});
 
-  if (isNavVisible) {
-    useLockBodyScroll(true);
-  } else {
-    useLockBodyScroll(false);
-  }
+  useLockBodyScroll(isNavVisible);
 
   useEffect(() => {
     const handleScroll = () => {
