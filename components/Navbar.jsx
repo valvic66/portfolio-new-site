@@ -7,23 +7,27 @@ import {
   MENU_ITEMS,
   AUTH_MENU_ITEMS,
 } from '../constants/navbar';
-import { useScrollLock } from '../hooks/useScrollLock';
 import { MenuItem } from './MenuItem';
 import { main } from '../constants/main';
 import { IS_AUTH_ENABLED } from '../constants/env';
 import Router from 'next/router';
-import { useLocalStorage } from 'react-use';
+import { useLocalStorage, useLockBodyScroll } from 'react-use';
 import useAuth from '../store';
 import { APP_ROUTES } from '../constants/routes';
 
 export const Navbar = ({ authenticated }) => {
   const [isNavVisible, setNavVisibility] = useState(false);
   const [isShadowVisible, setShadowVisibility] = useState(false);
-  const { lockScroll, unlockScroll } = useScrollLock();
   const clearToken = useAuth((state) => state.clearToken);
   const clearUser = useAuth((state) => state.clearUser);
   const [token, setToken, removeToken] = useLocalStorage('token', '');
-  const [uuser, setUser, removeUser] = useLocalStorage('user', {});
+  const [user, setUser, removeUser] = useLocalStorage('user', {});
+
+  if (isNavVisible) {
+    useLockBodyScroll(true);
+  } else {
+    useLockBodyScroll(false);
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,14 +40,6 @@ export const Navbar = ({ authenticated }) => {
 
     window.addEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    if (isNavVisible) {
-      lockScroll();
-    } else {
-      unlockScroll();
-    }
-  }, [isNavVisible]);
 
   const handleMenuToggle = (event) => {
     event.stopPropagation;
