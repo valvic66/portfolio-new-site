@@ -2,13 +2,14 @@ import React, { useRef } from 'react';
 import { RoughNotationGroup } from 'react-rough-notation';
 import { intersectionOptions, MY_NAME } from '../constants';
 import { main } from '../constants/main';
-import { useIntersection } from '../hooks/useIntersection';
 import { MediaIcons } from './MediaIcons';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
+import { useIntersection } from 'react-use';
 
 export const Main = () => {
-  const ref = useRef();
-  const isIntersecting = useIntersection(ref, {
+  const ref = useRef(null);
+  const intersection = useIntersection(ref, {
+    root: intersectionOptions.DEFAULT_ROOT,
     threshold: intersectionOptions.DEFAULT_THRESHOLD,
     rootMargin: intersectionOptions.DEFAULT_ROOT_MARGIN,
   });
@@ -23,7 +24,7 @@ export const Main = () => {
           <h1 className="text-gray-700 tracking-wide">
             Hi. I am <span className="text-blue-400">{main.NAME}</span>
           </h1>
-          <RoughNotationGroup show={isIntersecting}>
+          <RoughNotationGroup show={intersection?.isIntersecting}>
             <RoughNotationWrapper
               color="#f5bdb2"
               type="underline"

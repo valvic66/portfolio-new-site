@@ -9,16 +9,17 @@ import { CgPerformance } from 'react-icons/cg';
 import { GrGraphQl } from 'react-icons/gr';
 import { AiOutlineApi } from 'react-icons/ai';
 import { IconContext } from 'react-icons';
-import { useIntersection } from '../hooks/useIntersection';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 import { RoughNotationGroup } from 'react-rough-notation';
 import { intersectionOptions } from '../constants';
 import { skills } from '../constants/skills';
+import { useIntersection } from 'react-use';
 
 export const Skills = () => {
-  const ref = useRef();
-  const isIntersecting = useIntersection(ref, {
-    threshold: intersectionOptions.DEFAULT_TRESHOLD,
+  const ref = useRef(null);
+  const intersection = useIntersection(ref, {
+    root: intersectionOptions.DEFAULT_ROOT,
+    threshold: intersectionOptions.DEFAULT_THRESHOLD,
     rootMargin: intersectionOptions.DEFAULT_ROOT_MARGIN,
   });
 
@@ -26,16 +27,14 @@ export const Skills = () => {
     <section id="skills" className="w-full p-3 py-20">
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-col items-start">
-          <RoughNotationGroup show={isIntersecting}>
+          <RoughNotationGroup show={intersection?.isIntersecting}>
             <RoughNotationWrapper color="#f5bdb2" type="highlight">
               <h1 ref={ref} className="text-gray-700 tracking-wide">
                 My skills
               </h1>
             </RoughNotationWrapper>
           </RoughNotationGroup>
-          <p className="leading-5 text-sm py-5">
-            {skills.DESCRIPTION}
-          </p>
+          <p className="leading-5 text-sm py-5">{skills.DESCRIPTION}</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 py-4">
@@ -81,7 +80,7 @@ export const Skills = () => {
             >
               <FaReact />
             </IconContext.Provider>
-            <p className="text-sm">{"React & React Native"}</p>
+            <p className="text-sm">{'React & React Native'}</p>
           </div>
           <div className="grid grid-cols-2 place-items-center bg-white rounded-md py-1">
             <IconContext.Provider

@@ -4,15 +4,16 @@ import React, { useRef } from 'react';
 import { RoughNotationGroup } from 'react-rough-notation';
 import { intersectionOptions } from '../constants';
 import { contact } from '../constants/contact';
-import { useIntersection } from '../hooks/useIntersection';
 import { MediaIcons } from './MediaIcons';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 import { shimmer, toBase64 } from '../utils';
+import { useIntersection } from 'react-use';
 
 export const Contact = () => {
-  const ref = useRef();
-  const isIntersecting = useIntersection(ref, {
-    threshold: intersectionOptions.DEFAULT_TRESHOLD,
+  const ref = useRef(null);
+  const intersection = useIntersection(ref, {
+    root: intersectionOptions.DEFAULT_ROOT,
+    threshold: intersectionOptions.DEFAULT_THRESHOLD,
     rootMargin: intersectionOptions.DEFAULT_ROOT_MARGIN,
   });
 
@@ -20,7 +21,7 @@ export const Contact = () => {
     <section id="contact" className="w-full p-3 py-20 bg-white">
       <div className="md:grid grid-cols-3 gap-3 max-w-5xl mx-auto">
         <div className="col-span-2 flex flex-col items-center justify-center">
-          <RoughNotationGroup show={isIntersecting}>
+          <RoughNotationGroup show={intersection?.isIntersecting}>
             <RoughNotationWrapper color="#f5bdb2" type="highlight">
               <h1 ref={ref} className="text-gray-700 tracking-wide">
                 Contact me

@@ -3,15 +3,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 import { RoughNotationGroup } from 'react-rough-notation';
-import { useIntersection } from '../hooks/useIntersection';
 import { about } from '../constants/about';
 import { intersectionOptions } from '../constants';
 import { shimmer, toBase64 } from '../utils';
+import { useIntersection } from 'react-use';
 
 export const About = () => {
-  const ref = useRef();
-  const isIntersecting = useIntersection(ref, {
-    threshold: intersectionOptions.DEFAULT_TRESHOLD,
+  const ref = useRef(null);
+  const intersection = useIntersection(ref, {
+    root: intersectionOptions.DEFAULT_ROOT,
+    threshold: intersectionOptions.DEFAULT_THRESHOLD,
     rootMargin: intersectionOptions.DEFAULT_ROOT_MARGIN,
   });
 
@@ -19,7 +20,7 @@ export const About = () => {
     <section id="about" className="w-full p-3 py-20">
       <div className="max-w-5xl mx-auto md:grid grid-cols-3 gap-3">
         <div className="col-span-2 flex flex-col justify-center items-start">
-          <RoughNotationGroup show={isIntersecting}>
+          <RoughNotationGroup show={intersection?.isIntersecting}>
             <RoughNotationWrapper color="#f5bdb2" type="highlight">
               <h1 ref={ref} className="text-gray-700 tracking-wide">
                 Who am I?
