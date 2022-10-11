@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { API_ROUTES, APP_ROUTES } from '../constants/routes';
+import { API_ROUTES, APP_ROUTES } from '../../constants/routes';
 import { useRouter } from 'next/router';
-import { Sign } from '../components/Sign';
+import { Sign } from '../../components/Sign';
 import { useLocalStorage } from 'react-use';
 
 export default function Signup() {

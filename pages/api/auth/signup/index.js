@@ -1,7 +1,7 @@
 import { gql, GraphQLClient } from 'graphql-request';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import { CreateUserMutation } from '../../../lib/queries';
+import { CreateUserMutation } from '../../../../lib/queries';
 
 const { GRAPHCMS_URL, JWT_SECRET, JWT_EXPIRES_IN } = process.env;
 const client = new GraphQLClient(GRAPHCMS_URL);

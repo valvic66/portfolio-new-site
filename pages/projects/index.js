@@ -1,5 +1,5 @@
 import React from 'react';
-import { MOCKED_PROJECTS } from '../constants/projects';
+import { MOCKED_PROJECTS } from '../../constants/projects';
 
 export default function Projects({ projects }) {
   return (

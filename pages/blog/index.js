@@ -2,7 +2,7 @@ import React from 'react';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { BlogPost } from '../components/BlogPost';
+import { BlogPost } from '../../components/BlogPost';
 
 export default function Blog({ posts }) {
   return (
