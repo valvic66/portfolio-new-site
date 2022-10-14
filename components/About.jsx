@@ -30,7 +30,7 @@ export const About = () => {
           <p className="leading-5 text-sm py-5">{about.DESCRIPTION}</p>
           <div className="pb-6">
             <Link href="/#projects">
-              <li className="underline text-sd text-gray-600">
+              <li className="underline text-sd text-gray-600 list-none">
                 Check some of my projects
               </li>
             </Link>
