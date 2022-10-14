@@ -6,7 +6,7 @@ import { Projects } from '../components/Projects';
 import { About } from '../components/About';
 import { Contact } from '../components/Contact';
 import { Navbar } from '../components/Navbar';
-import useAuth from '../store';
+import useAuth from '../store/auth';
 import { useRouter } from 'next/router';
 import { APP_ROUTES } from '../constants/routes';
 import { IS_AUTH_ENABLED } from '../constants/env';

@@ -3,11 +3,11 @@ import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
 import Image from 'next/image';
-import { shimmer, toBase64 } from '../../utils';
+import { shimmer, toBase64 } from '../../../utils';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote } from 'next-mdx-remote';
 
-export default function PostPage({
+function PostDetailPage({
   data: { title, date, cover_image, isRed },
   slug,
   mdxSource,
@@ -64,3 +64,5 @@ export async function getStaticProps(paths) {
     },
   };
 }
+
+export default PostDetailPage;

@@ -25,7 +25,14 @@ export const BlogPost = ({ post }) => {
       />
       <p className="pb-1">{title}</p>
       <p className="pb-1 text-xs">Posted on: {date}</p>
-      <Link href={`/blog/${slug}`}>
+      <Link
+        href={{
+          pathname: '/blog/[slug]',
+          query: {
+            slug,
+          },
+        }}
+      >
         <button className="text-sm bg-black text-white py-2 rounded-sm">
           Read more
         </button>

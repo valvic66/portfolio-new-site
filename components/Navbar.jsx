@@ -12,7 +12,7 @@ import { main } from '../constants/main';
 import { IS_AUTH_ENABLED } from '../constants/env';
 import Router from 'next/router';
 import { useLocalStorage, useLockBodyScroll } from 'react-use';
-import useAuth from '../store';
+import useAuth from '../store/auth';
 import { APP_ROUTES } from '../constants/routes';
 
 export const Navbar = ({ authenticated }) => {

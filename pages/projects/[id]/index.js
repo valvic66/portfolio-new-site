@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { MOCKED_PROJECTS } from '../../constants/projects';
+import { MOCKED_PROJECTS } from '../../../constants/projects';
 import Image from 'next/image';
-import { Stack } from '../../components/Stack';
+import { Stack } from '../../../components/Stack';
 
 import { Navigation, Pagination, Scrollbar, A11y, EffectCube } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -42,9 +42,7 @@ export default function Projects({ project }) {
         </Swiper>
         <div className="w-full h-auto mx-auto p-5">
           <div>
-            <p className="text-2xl tracking-wide md:tracking-widest">
-              {name}
-            </p>
+            <p className="text-2xl tracking-wide md:tracking-widest">{name}</p>
             <div className="py-2">
               <Stack stack={stack} />
             </div>
