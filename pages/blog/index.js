@@ -8,20 +8,21 @@ import axios from 'axios';
 import { API_ROUTES } from '../../constants/routes';
 import { getAllBlogs } from '../../lib/queries';
 
-// const getBlogs = async () => {
-//   try {
-//     const response = await axios({
-//       method: 'get',
-//       url: API_ROUTES.GET_ALL_BLOGS,
-//     });
-//   } catch (error) {
-//   } finally {
-//   }
-// };
-// getBlogs();
+const getBlogs = async () => {
+  try {
+    const response = await axios({
+      method: 'get',
+      url: API_ROUTES.GET_ALL_BLOGS,
+    });
+    console.log(response.data.blogModels);
+  } catch (error) {
+  } finally {
+  }
+};
+getBlogs();
 
-function AllPosts({ blogs: { blogModels } }) {
-  console.log(blogModels);
+function AllPosts({}) {
+  // console.log(blogModels);
   // const router = useRouter();
   // const setPosts = usePosts((state) => state.setPosts);
   // const handleSearch = (month, year) => {
@@ -49,17 +50,17 @@ function AllPosts({ blogs: { blogModels } }) {
   // );
 }
 
-export async function getServerSideProps() {
-  const response = await axios({
-    method: 'get',
-    url: API_ROUTES.GET_ALL_BLOGS,
-  });
+// export async function getServerSideProps() {
+//   const response = await axios({
+//     method: 'get',
+//     url: API_ROUTES.GET_ALL_BLOGS,
+//   });
 
-  return {
-    props: {
-      blogs: response?.data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       blogs: response?.data,
+//     },
+//   };
+// }
 
 export default AllPosts;
