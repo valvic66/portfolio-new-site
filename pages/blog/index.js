@@ -4,10 +4,10 @@ import { API_ROUTES } from '../../constants/routes';
 import { SvgSpinner } from '../../components/SvgSpinner';
 import { client } from '../../axios';
 
-function AllPosts() {
+function AllPosts({ blogs }) {
   const [isLoading, setIsLoading] = useState(true);
   const [blogPosts, setBlogPosts] = useState([]);
-
+  console.log('server side blogs', blogs);
   useEffect(() => {
     const getBlogs = async () => {
       try {
@@ -58,17 +58,19 @@ function AllPosts() {
   // };
 }
 
-// export async function getServerSideProps() {
-//   const response = await axios({
-//     method: 'get',
-//     url: API_ROUTES.GET_ALL_BLOGS,
-//   });
+export async function getServerSideProps() {
+  // also working server side !!!
+  // choose between SSR or client side + spinner
+  const response = await client({
+    method: 'get',
+    url: API_ROUTES.GET_ALL_BLOGS,
+  });
 
-//   return {
-//     props: {
-//       blogs: response?.data,
-//     },
-//   };
-// }
+  return {
+    props: {
+      blogs: response.data,
+    },
+  };
+}
 
 export default AllPosts;
