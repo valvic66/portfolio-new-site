@@ -1,68 +1,49 @@
-import React from 'react';
-import path from 'path';
-import fs from 'fs';
-import matter from 'gray-matter';
-import Image from 'next/image';
-import { shimmer, toBase64 } from '../../../utils';
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { API_ROUTES } from '../../../constants/routes';
+import axios from 'axios';
+import { SvgSpinner } from '../../../components/SvgSpinner';
+import { BlogPost } from '../../../components/BlogPost';
 
-function PostDetailPage({
-  data: { title, date, cover_image, isRed },
-  slug,
-  mdxSource,
-}) {
-  return (
-    <div className="pt-20 grid grid-cols-1 gap-2">
-      <h1>{title}</h1>
-      <p>{`Posted on: ${date}`}</p>
-      <Image
-        className="relative rounded-md"
-        src={cover_image}
-        alt={title}
-        placeholder="blur"
-        blurDataURL={`data:image/svg+xml;base64,${toBase64(
-          shimmer(6000, 4000)
-        )}`}
-        width={6000}
-        height={4000}
-        layout="responsive"
-        priority
-      />
-      <MDXRemote {...mdxSource} />
-    </div>
-  );
-}
+function PostDetailPage() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [blogPost, setBlogPost] = useState([]);
+  const router = useRouter();
 
-export async function getStaticPaths() {
-  const files = fs.readdirSync(path.join('posts'));
-  const paths = files.map((fileName) => ({
-    params: {
-      slug: fileName.replace('.mdx', ''),
-    },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps(paths) {
   const {
-    params: { slug },
-  } = paths;
+    query: { slug },
+  } = router;
 
-  const mdx = fs.readFileSync(path.join('posts', slug + '.mdx'), 'utf-8');
-  const { data, content } = matter(mdx);
-  const mdxSource = await serialize(content);
-  return {
-    props: {
-      data,
-      slug,
-      mdxSource,
-    },
-  };
+  useEffect(() => {
+    const getBlog = async () => {
+      try {
+        const response = await axios({
+          method: 'post',
+          url: API_ROUTES.GET_BLOG_BY_SLUG,
+          data: {
+            slug,
+          },
+        });
+
+        setBlogPost(response.data.blogModel);
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getBlog();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-screen flex justify-center items-center">
+        <SvgSpinner />
+      </div>
+    );
+  }
+
+  return <BlogPost post={blogPost} />;
 }
 
 export default PostDetailPage;
