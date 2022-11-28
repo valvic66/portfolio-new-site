@@ -6,10 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "seed": "npx prisma db seed",
-    "db-update": "npx prisma db push",
-    "studio": "npx prisma studio"
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.10.4",

@@ -33,7 +33,7 @@ function PostDetailPage() {
     };
 
     getBlog();
-  }, []);
+  }, [slug]);
 
   if (isLoading) {
     return (
