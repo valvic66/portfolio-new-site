@@ -39,8 +39,5 @@
     "postcss": "^8.4.16",
     "react-rough-notation": "^1.0.3",
     "tailwindcss": "^3.1.8"
-  },
-  "prisma": {
-    "seed": "node prisma/seed.js"
   }
 }
