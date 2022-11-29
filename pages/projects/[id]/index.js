@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { MOCKED_PROJECTS } from '../../../constants/projects';
+import { MOCKED_PROJECTS } from '@/constants/projects';
 import Image from 'next/image';
-import { Stack } from '../../../components/Stack';
+import { Stack } from '@/components/Stack';
 
 import { Navigation, Pagination, Scrollbar, A11y, EffectCube } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';

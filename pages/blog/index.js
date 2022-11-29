@@ -1,44 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { BlogPost } from '../../components/BlogPost';
-import { API_ROUTES } from '../../constants/routes';
-import { SvgSpinner } from '../../components/SvgSpinner';
+import React from 'react';
+import { BlogPost } from '@/components/BlogPost';
+import { API_ROUTES } from '@/constants/routes';
 import { client } from '../../axios';
 
-function AllPosts() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [blogPosts, setBlogPosts] = useState([]);
-
-  useEffect(() => {
-    const getBlogs = async () => {
-      try {
-        const response = await client({
-          method: 'get',
-          url: API_ROUTES.GET_ALL_BLOGS,
-        });
-
-        setBlogPosts(response.data.blogModels);
-      } catch (error) {
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getBlogs();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <div className="w-full h-screen flex justify-center items-center">
-        <SvgSpinner />
-      </div>
-    );
-  }
-
+function AllPosts({ blogs }) {
   return (
     <>
       {/* {IS_POST_SEARCH_ENABLED && <PostSearch onSearch={handleSearch} />} */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 p-2">
-        {blogPosts?.map((post, key) => {
+        {blogs?.map((post, key) => {
           return (
             <div key={key}>
               <BlogPost post={post} />
@@ -58,19 +28,17 @@ function AllPosts() {
   // };
 }
 
-// export async function getServerSideProps() {
-//   // also working server side !!!
-//   // choose between SSR or client side + spinner
-//   const response = await client({
-//     method: 'get',
-//     url: API_ROUTES.GET_ALL_BLOGS,
-//   });
+export async function getServerSideProps() {
+  const response = await client({
+    method: 'get',
+    url: API_ROUTES.GET_ALL_BLOGS,
+  });
 
-//   return {
-//     props: {
-//       blogs: response.data,
-//     },
-//   };
-// }
+  return {
+    props: {
+      blogs: response?.data?.blogModels,
+    },
+  };
+}
 
 export default AllPosts;

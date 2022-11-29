@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { API_ROUTES } from '../../../constants/routes';
+import { API_ROUTES } from '@/constants/routes';
 import axios from 'axios';
-import { SvgSpinner } from '../../../components/SvgSpinner';
-import { BlogPost } from '../../../components/BlogPost';
+import { SvgSpinner } from '@/components/SvgSpinner';
+import { BlogPost } from '@/components/BlogPost';
 
 function PostDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
