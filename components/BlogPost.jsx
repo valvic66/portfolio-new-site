@@ -10,7 +10,7 @@ export const BlogPost = ({ post }) => {
   return (
     <div className="w-full h-auto flex flex-col">
       <p className="pb-1">{title}</p>
-      <p className="pb-1 text-xs">Posted on: {date}</p>
+      <p className="pb-1 text-xs">{new Date(date).toDateString()}</p>
       <div>
         <Image
           className="relative z-0 rounded-md"

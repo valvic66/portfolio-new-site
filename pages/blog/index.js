@@ -2,6 +2,7 @@ import React from 'react';
 import { BlogPost } from '@/components/BlogPost';
 import { API_ROUTES } from '@/constants/routes';
 import { client } from '../../axios';
+import { getAllBlogs } from '@/lib/data';
 
 function AllPosts({ blogs }) {
   return (
@@ -18,25 +19,21 @@ function AllPosts({ blogs }) {
       </div>
     </>
   );
-
-  // const router = useRouter();
-  // const setPosts = usePosts((state) => state.setPosts);
-  // const handleSearch = (month, year) => {
-  //   router.push({
-  //     pathname: `/blog/${month}/${year}`,
-  //   });
-  // };
+  const router = useRouter();
+  const setPosts = usePosts((state) => state.setPosts);
+  const handleSearch = (month, year) => {
+    router.push({
+      pathname: `/blog/${month}/${year}`,
+    });
+  };
 }
 
-export async function getServerSideProps() {
-  const response = await client({
-    method: 'get',
-    url: API_ROUTES.GET_ALL_BLOGS,
-  });
+export async function getStaticProps() {
+  const data = await getAllBlogs();
 
   return {
     props: {
-      blogs: response?.data?.blogModels,
+      blogs: data.blogModels,
     },
   };
 }

@@ -1,41 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
-import { API_ROUTES } from '@/constants/routes';
-import axios from 'axios';
 import { SvgSpinner } from '@/components/SvgSpinner';
 import { BlogPost } from '@/components/BlogPost';
+import { getBlogBySlug, getBlogSlugs } from '@/lib/data';
 
-function PostDetailPage() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [blogPost, setBlogPost] = useState([]);
+function PostDetailPage({ blog }) {
   const router = useRouter();
 
-  const {
-    query: { slug },
-  } = router;
-
-  useEffect(() => {
-    const getBlog = async () => {
-      try {
-        const response = await axios({
-          method: 'post',
-          url: API_ROUTES.GET_BLOG_BY_SLUG,
-          data: {
-            slug,
-          },
-        });
-
-        setBlogPost(response.data.blogModel);
-      } catch (error) {
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getBlog();
-  }, [slug]);
-
-  if (isLoading) {
+  if (router.isFallback) {
     return (
       <div className="w-full h-screen flex justify-center items-center">
         <SvgSpinner />
@@ -43,7 +15,30 @@ function PostDetailPage() {
     );
   }
 
-  return <BlogPost post={blogPost} />;
+  return <BlogPost post={blog} />;
+}
+
+export async function getStaticPaths() {
+  const blogSlugs = await getBlogSlugs();
+
+  const slugPaths = blogSlugs?.blogModels?.map((_slug) => ({
+    params: { slug: _slug.slug },
+  }));
+
+  return {
+    paths: slugPaths,
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const data = await getBlogBySlug(params.slug);
+
+  return {
+    props: {
+      blog: data.blogModel,
+    },
+  };
 }
 
 export default PostDetailPage;
