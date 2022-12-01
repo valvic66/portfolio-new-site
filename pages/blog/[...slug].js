@@ -1,8 +1,9 @@
+/*
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { BlogPost } from '../../components/BlogPost';
 import { Spinner } from '../../components/Spinner';
-import usePosts from '../../store/blog';
+// import usePosts from '../../store/blog';
 
 const getFilteredPosts = (dateFilter, dataToFilter) => {
   const { month, year } = dateFilter;
@@ -66,3 +67,4 @@ function FiltedPostsPage() {
 }
 
 export default FiltedPostsPage;
+*/
