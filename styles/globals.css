@@ -63,3 +63,34 @@ html {
   color: rgb(251 207 232) !important;
   /* color: rgb(219 39 119) !important; */
 }
+
+.content-renderer {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.content-renderer p {
+  margin: 5px 0 5px 0;
+  /* text-align: center; */
+}
+.content-renderer pre {
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-left: 3px solid #f36d33;
+  color: #666;
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 100%;
+  overflow: auto;
+  padding: 1em;
+  display: block;
+  word-wrap: break-word;
+  margin: 5px 0 5px 0;
+}
+
+.content-renderer ul {
+  list-style-type: none;
+  margin: 5px 0 5px 0;
+}

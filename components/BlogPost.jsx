@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { shimmer, toBase64 } from '../utils';
+import { ContentRenderer } from './ContentRenderer';
 
 export const BlogPost = ({ post }) => {
   const { slug, title, subheading, tags, content, date, bannerImage } = post;
@@ -11,6 +12,7 @@ export const BlogPost = ({ post }) => {
     <div className="w-full h-auto flex flex-col">
       <p className="pb-1">{title}</p>
       <p className="pb-1 text-xs">{new Date(date).toDateString()}</p>
+      <ContentRenderer contentHtml={content?.html} />
       <div>
         <Image
           className="relative z-0 rounded-md"
