@@ -1,7 +1,7 @@
 import React from 'react';
 import { BlogPost } from '@/components/BlogPost';
-import { API_ROUTES } from '@/constants/routes';
-import { client } from '../../axios';
+// import { API_ROUTES } from '@/constants/routes';
+// import { client } from '../../axios';
 import { getAllBlogs } from '@/lib/data';
 
 function AllPosts({ blogs }) {
@@ -19,13 +19,13 @@ function AllPosts({ blogs }) {
       </div>
     </>
   );
-  const router = useRouter();
-  const setPosts = usePosts((state) => state.setPosts);
-  const handleSearch = (month, year) => {
-    router.push({
-      pathname: `/blog/${month}/${year}`,
-    });
-  };
+  // const router = useRouter();
+  // const setPosts = usePosts((state) => state.setPosts);
+  // const handleSearch = (month, year) => {
+  //   router.push({
+  //     pathname: `/blog/${month}/${year}`,
+  //   });
+  // };
 }
 
 export async function getStaticProps() {
