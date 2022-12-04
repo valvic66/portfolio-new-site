@@ -15,7 +15,7 @@ function PostDetailPage({ blog }) {
     );
   }
 
-  return <BlogPost post={blog} />;
+  return <BlogPost post={blog} isDetailed={true} />;
 }
 
 export async function getStaticPaths() {

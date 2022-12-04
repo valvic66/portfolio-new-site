@@ -17,7 +17,7 @@ export const About = () => {
   });
 
   return (
-    <section id="about" className="w-full p-3 py-20">
+    <section id="about" className="w-full p-3 py-20 border-4 border-red-700">
       <div className="max-w-5xl mx-auto md:grid grid-cols-3 gap-3">
         <div className="col-span-2 flex flex-col justify-center items-start">
           <RoughNotationGroup show={intersection?.isIntersecting}>

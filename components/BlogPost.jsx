@@ -4,15 +4,15 @@ import React from 'react';
 import { shimmer, toBase64 } from '../utils';
 import { ContentRenderer } from './ContentRenderer';
 
-export const BlogPost = ({ post }) => {
+export const BlogPost = ({ post, isDetailed = false }) => {
   const { slug, title, subheading, tags, content, date, bannerImage } = post;
   const { url, width, height, fileName } = bannerImage ?? {};
 
   return (
     <div className="w-full h-auto flex flex-col">
       <p className="pb-1">{title}</p>
+      <p className="pb-1">{subheading}</p>
       <p className="pb-1 text-xs">{new Date(date).toDateString()}</p>
-      <ContentRenderer contentHtml={content?.html} />
       <div>
         <Image
           className="relative z-0 rounded-md"
@@ -27,7 +27,6 @@ export const BlogPost = ({ post }) => {
           height={height}
         />
       </div>
-      <p className="pb-1">{subheading}</p>
       <Link
         href={{
           pathname: '/blog/[slug]',
@@ -40,6 +39,11 @@ export const BlogPost = ({ post }) => {
           Read more
         </button>
       </Link>
+      {isDetailed && (
+        <>
+          <ContentRenderer contentHtml={content?.html} />
+        </>
+      )}
     </div>
   );
 };
