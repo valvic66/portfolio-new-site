@@ -66,12 +66,13 @@ html {
 
 .content-renderer {
   padding: 5px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  gap: 10px;
+}
+.content-renderer h2 {
+  text-align: center;
 }
 .content-renderer p {
-  margin-top: 5px;
-  /* text-align: center; */
 }
 .content-renderer pre {
   background: #f4f4f4;
@@ -89,8 +90,9 @@ html {
   word-wrap: break-word;
   margin-top: 5px;
 }
-
 .content-renderer ul {
-  margin-top: 5px;
   list-style-type: none;
+}
+.content-renderer a {
+  color: blue;
 }

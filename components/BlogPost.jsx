@@ -9,41 +9,47 @@ export const BlogPost = ({ post, isDetailed = false }) => {
   const { url, width, height, fileName } = bannerImage ?? {};
 
   return (
-    <div className="w-full h-auto flex flex-col">
-      <p className="pb-1">{title}</p>
-      <p className="pb-1">{subheading}</p>
-      <p className="pb-1 text-xs">{new Date(date).toDateString()}</p>
-      <div>
-        <Image
-          className="relative z-0 rounded-md"
-          src={url}
-          alt={fileName}
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(
-            shimmer(width, height)
-          )}`}
-          layout="responsive"
-          width={width}
-          height={height}
-        />
-      </div>
-      <Link
-        href={{
-          pathname: '/blog/[slug]',
-          query: {
-            slug,
-          },
-        }}
-      >
-        <button className="text-sm bg-black text-white py-2 rounded-sm">
-          Read more
-        </button>
-      </Link>
+    <section className="w-full h-auto flex flex-col max-w-4xl m-auto">
+      <header>
+        <p className="text-3xl uppercase text-center mt-20">{title}</p>
+        <p className="text-xl text-center mt-3">{subheading}</p>
+        <p className="text-xs text-center mt-1">
+          {new Date(date).toDateString()}
+        </p>
+        <div className="mt-20">
+          <Image
+            className="relative z-0"
+            src={url}
+            alt={fileName}
+            placeholder="blur"
+            blurDataURL={`data:image/svg+xml;base64,${toBase64(
+              shimmer(width, height)
+            )}`}
+            layout="responsive"
+            width={width}
+            height={height}
+          />
+        </div>
+        {!isDetailed && (
+          <Link
+            href={{
+              pathname: '/blog/[slug]',
+              query: {
+                slug,
+              },
+            }}
+          >
+            <button className="text-sm bg-black text-white py-2 rounded-sm">
+              Read more
+            </button>
+          </Link>
+        )}
+      </header>
       {isDetailed && (
-        <>
+        <article>
           <ContentRenderer contentHtml={content?.html} />
-        </>
+        </article>
       )}
-    </div>
+    </section>
   );
 };

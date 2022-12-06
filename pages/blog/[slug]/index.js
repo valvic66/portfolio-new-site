@@ -15,7 +15,11 @@ function PostDetailPage({ blog }) {
     );
   }
 
-  return <BlogPost post={blog} isDetailed={true} />;
+  return (
+    <main className="w-full bg-slate-50">
+      <BlogPost post={blog} isDetailed={true} />
+    </main>
+  );
 }
 
 export async function getStaticPaths() {
