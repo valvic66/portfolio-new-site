@@ -15,7 +15,7 @@ export const Main = () => {
   });
 
   return (
-    <main id="main" className="w-full h-screen bg-white text-center p-3 pt-20 border-4 border-red-700">
+    <main id="main" className="w-full h-screen bg-white text-center p-3 pt-20">
       <div className="max-w-5xl mx-auto flex flex-col items-center">
         <section className="pb-10">
           <p className="text-sm pb-10 tracking-wide uppercase text-gray-500">
