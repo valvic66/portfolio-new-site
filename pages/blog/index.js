@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BlogPost } from '@/components/BlogPost';
 import { getPaginatedBlogs } from '@/lib/data';
 import useSWR from 'swr';
@@ -13,6 +13,7 @@ const API_URL =
 function AllPosts({ blogs }) {
   const [first, setFirst] = useState(2);
   const [skip, setSkip] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const { data, err } = useSWR(
     [
@@ -38,6 +39,11 @@ function AllPosts({ blogs }) {
         }
         date
       }
+      blogModelsConnection {
+        pageInfo {
+          pageSize
+        }
+      }
     }
     `,
       first,
@@ -48,11 +54,13 @@ function AllPosts({ blogs }) {
   );
 
   const handlePrevClick = () => {
-    setSkip(skip - 2);
+    setSkip(skip - first);
+    setPageNumber(pageNumber - 1);
   };
 
   const handleNextClick = () => {
-    setSkip(skip + 2);
+    setSkip(skip + first);
+    setPageNumber(pageNumber + 1);
   };
 
   if (err) return <div>failed to load</div>;
@@ -69,7 +77,7 @@ function AllPosts({ blogs }) {
     <>
       {/* {IS_POST_SEARCH_ENABLED && <PostSearch onSearch={handleSearch} />} */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
-        {data?.blogModels.map((post, key) => {
+        {data?.blogModels?.map((post, key) => {
           return (
             <div key={key}>
               <BlogPost post={post} />
@@ -77,8 +85,18 @@ function AllPosts({ blogs }) {
           );
         })}
       </div>
-      <Button onClick={handlePrevClick}>Previous</Button>
-      <Button onClick={handleNextClick}>Next</Button>
+      <Button onClick={handlePrevClick} disabled={pageNumber === 1}>
+        Previous
+      </Button>
+      <Button
+        onClick={handleNextClick}
+        disabled={
+          pageNumber ===
+          Math.ceil(data?.blogModelsConnection?.pageInfo?.pageSize / first)
+        }
+      >
+        Next
+      </Button>
     </>
   );
   // const router = useRouter();
