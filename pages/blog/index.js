@@ -4,6 +4,7 @@ import { getPaginatedBlogs } from '@/lib/data';
 import useSWR from 'swr';
 import request from 'graphql-request';
 import Button from '@mui/material/Button';
+import { SvgSpinner } from '@/components/SvgSpinner';
 
 const fetchData = (endpoint, query, params) => request(endpoint, query, params);
 const API_URL =
@@ -45,7 +46,6 @@ function AllPosts({ blogs }) {
     (endpoint, query) => fetchData(endpoint, query, { first, skip }),
     { initialData: blogs, revalidateOnFocus: false }
   );
-  console.table(data?.blogModels);
 
   const handlePrevClick = () => {
     setSkip(skip - 2);
@@ -54,6 +54,16 @@ function AllPosts({ blogs }) {
   const handleNextClick = () => {
     setSkip(skip + 2);
   };
+
+  if (err) return <div>failed to load</div>;
+
+  if (!data) {
+    return (
+      <div className="w-full h-screen flex justify-center items-center">
+        <SvgSpinner />
+      </div>
+    );
+  }
 
   return (
     <>
