@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BlogPost } from '@/components/BlogPost';
+import { BlogPostCard } from '@/components/BlogPostCard';
 import { getPaginatedBlogs } from '@/lib/data';
 import useSWR from 'swr';
 import request from 'graphql-request';
@@ -74,25 +74,27 @@ function AllPosts({ blogs }) {
   }
 
   return (
-    <section>
+    <section className="max-w-[860px] mx-auto">
       {/* {IS_POST_SEARCH_ENABLED && <PostSearch onSearch={handleSearch} />} */}
-      <div className="">
+      <div className="grid gap-1">
         {data?.blogModels?.map((post, key) => {
-          return <BlogPost post={post} key={key} />;
+          return <BlogPostCard post={post} key={key} />;
         })}
       </div>
-      <Button onClick={handlePrevClick} disabled={pageNumber === 1}>
-        Previous
-      </Button>
-      <Button
-        onClick={handleNextClick}
-        disabled={
-          pageNumber ===
-          Math.ceil(data?.blogModelsConnection?.pageInfo?.pageSize / first)
-        }
-      >
-        Next
-      </Button>
+      <div className='flex justify-center my-5'>
+        <Button onClick={handlePrevClick} disabled={pageNumber === 1}>
+          Previous
+        </Button>
+        <Button
+          onClick={handleNextClick}
+          disabled={
+            pageNumber ===
+            Math.ceil(data?.blogModelsConnection?.pageInfo?.pageSize / first)
+          }
+        >
+          Next
+        </Button>
+      </div>
     </section>
   );
   // const router = useRouter();

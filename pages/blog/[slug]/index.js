@@ -17,7 +17,7 @@ function PostDetailPage({ blog }) {
 
   return (
     <main className="w-full bg-slate-50">
-      <BlogPost post={blog} isDetailed={true} />
+      <BlogPost post={blog} />
     </main>
   );
 }
