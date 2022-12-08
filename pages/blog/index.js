@@ -74,15 +74,11 @@ function AllPosts({ blogs }) {
   }
 
   return (
-    <>
+    <section>
       {/* {IS_POST_SEARCH_ENABLED && <PostSearch onSearch={handleSearch} />} */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 p-2">
+      <div className="">
         {data?.blogModels?.map((post, key) => {
-          return (
-            <div key={key}>
-              <BlogPost post={post} />
-            </div>
-          );
+          return <BlogPost post={post} key={key} />;
         })}
       </div>
       <Button onClick={handlePrevClick} disabled={pageNumber === 1}>
@@ -97,7 +93,7 @@ function AllPosts({ blogs }) {
       >
         Next
       </Button>
-    </>
+    </section>
   );
   // const router = useRouter();
   // const setPosts = usePosts((state) => state.setPosts);

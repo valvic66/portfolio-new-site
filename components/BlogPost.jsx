@@ -3,34 +3,52 @@ import Link from 'next/link';
 import React from 'react';
 import { shimmer, toBase64 } from '../utils';
 import { ContentRenderer } from './ContentRenderer';
+import { PostTag } from './PostTag';
 
 export const BlogPost = ({ post, isDetailed = false }) => {
   const { slug, title, subheading, tags, content, date, bannerImage } = post;
   const { url, width, height, fileName } = bannerImage ?? {};
 
   return (
-    <section className="w-full h-auto flex flex-col max-w-4xl m-auto">
-      <header>
-        <p className="text-3xl uppercase text-center mt-20">{title}</p>
-        <p className="text-xl text-center mt-3">{subheading}</p>
-        <p className="text-xs text-center mt-1">
-          {new Date(date).toDateString()}
-        </p>
-        <div className="mt-20">
-          <Image
-            className="relative z-0"
-            src={url}
-            alt={fileName}
-            placeholder="blur"
-            blurDataURL={`data:image/svg+xml;base64,${toBase64(
-              shimmer(width, height)
-            )}`}
-            layout="responsive"
-            width={width}
-            height={height}
-          />
-        </div>
-        {!isDetailed && (
+    <article className="grid auto-rows-auto md:grid-cols-2 p-5 font-lato">
+      <div className="w-full relative h-60 h- sm:h-72">
+        <Image
+          className="z-0"
+          src={url}
+          alt={fileName}
+          placeholder="blur"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(
+            shimmer(width, height)
+          )}`}
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
+      <div className="flex flex-col md:justify-between md:p-3">
+        <header>
+          <div className="mt-1">
+            <PostTag tags={tags} />
+          </div>
+          <p className="text-xl sm:text-2xl font-semibold tracking-wide">
+            <Link
+              href={{
+                pathname: '/blog/[slug]',
+                query: {
+                  slug,
+                },
+              }}
+            >
+              {title}
+            </Link>
+          </p>
+        </header>
+        <footer>
+          <p className="text-xs sm:text-sm text-right">
+            {new Date(date).toDateString()}
+          </p>
+        </footer>
+      </div>
+      {/* {!isDetailed && (
           <Link
             href={{
               pathname: '/blog/[slug]',
@@ -43,13 +61,12 @@ export const BlogPost = ({ post, isDetailed = false }) => {
               Read more
             </button>
           </Link>
-        )}
-      </header>
+        )} */}
       {isDetailed && (
         <article>
           <ContentRenderer contentHtml={content?.html} />
         </article>
       )}
-    </section>
+    </article>
   );
 };
