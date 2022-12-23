@@ -6,14 +6,18 @@ import { ContentRenderer } from './ContentRenderer';
 import { PostTag } from './PostTag';
 
 export const BlogPostCard = ({ post }) => {
-  const { slug, title, date, 
-    // tags 
+  const {
+    slug,
+    title,
+    date,
+    image,
+    tags
   } = post;
   // const { url, width, height, fileName } = bannerImage ?? {};
 
   return (
     <article className="grid md:grid-cols-[40%_60%] p-5 font-lato rounded bg-gray-100">
-      {/* <div className="">
+      <div className="">
         <Link
           href={{
             pathname: '/blog/[slug]',
@@ -25,23 +29,23 @@ export const BlogPostCard = ({ post }) => {
           <div className="w-full relative h-60 sm:h-72 md:h-44 cursor-pointer">
             <Image
               className="z-0"
-              src={url}
-              alt={fileName}
+              src={image}
+              alt={slug}
               placeholder="blur"
               blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                shimmer(width, height)
+                shimmer(612, 350)
               )}`}
               layout="fill"
               objectFit="cover"
             />
           </div>
         </Link>
-      </div> */}
+      </div>
       <div className="flex flex-col md:justify-between md:p-3">
         <header>
-          {/* <div className="mt-1">
+          <div className="mt-1">
             <PostTag tags={tags} />
-          </div> */}
+          </div>
           <p className="text-xl sm:text-2xl md:text-3xl md:mt-3 font-semibold tracking-tight">
             <Link
               href={{

@@ -1,32 +1,25 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import { SvgSpinner } from '@/components/SvgSpinner';
 import { BlogPost } from '@/components/BlogPost';
-import { getBlogBySlug, getBlogSlugs } from '@/lib/data';
+import { getPosts } from '@/lib/posts';
+import md from 'markdown-it';
 
-function PostDetailPage({ blog }) {
-  const router = useRouter();
-
-  if (router.isFallback) {
-    return (
-      <div className="w-full h-screen flex justify-center items-center">
-        <SvgSpinner />
-      </div>
-    );
-  }
-
+function PostDetailPage({ postBySlug }) {
   return (
-    <main className="w-full bg-slate-50">
-      <BlogPost post={blog} />
+    <main className="prose max-w-[860px] mx-auto">
+      <BlogPost post={postBySlug} />
+      <div
+        dangerouslySetInnerHTML={{ __html: md().render(postBySlug?.content) }}
+      />
     </main>
   );
 }
 
 export async function getStaticPaths() {
-  const blogSlugs = await getBlogSlugs();
+  const slugs = getPosts().map((post) => post.slug);
 
-  const slugPaths = blogSlugs?.blogModels?.map((_slug) => ({
-    params: { slug: _slug.slug },
+  const slugPaths = slugs.map((slug) => ({
+    params: { slug },
   }));
 
   return {
@@ -36,11 +29,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const data = await getBlogBySlug(params.slug);
+  const postBySlug = getPosts().filter((post) => post.slug === params.slug)[0];
+  // const { content, ...other } = postBySlug;
 
   return {
     props: {
-      blog: data.blogModel,
+      postBySlug,
     },
   };
 }

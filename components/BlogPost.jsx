@@ -1,60 +1,41 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import { shimmer, toBase64 } from '../utils';
-import { ContentRenderer } from './ContentRenderer';
 import { PostTag } from './PostTag';
 
 export const BlogPost = ({ post }) => {
-  const { slug, title, date } =
-    // subheading,
-    // tags,
-    // content,
-    //  bannerImage
-    post;
-
-  // const { url, width, height, fileName } = bannerImage ?? {};
+  const { slug, title, date, tags, image } = post;
 
   return (
-    <article className="grid grid-cols-1 p-5 font-lato max-w-[860px] mx-auto">
+    <article className="p-5 font-lato">
       <div className="flex flex-col md:justify-between md:p-3">
         <header>
           <div className="mt-1 flex items-center justify-between">
             <p className="text-sm sm:text-sm text-right mr-1 uppercase text-gray-500">
               {new Date(date).toDateString()}
             </p>
-            {/* <PostTag tags={tags} /> */}
+            <PostTag tags={tags} />
           </div>
           <p className="text-xl sm:text-4xl font-semibold tracking-tight mt-5">
-            {/* <Link
-              href={{
-                pathname: '/blog/[slug]',
-                query: {
-                  slug,
-                },
-              }}
-            > */}
-              {title}
-            {/* </Link> */}
+            {title}
           </p>
-          {/* <p className="text-lg mt-2">{subheading}</p> */}
         </header>
       </div>
-      {/* <div className="w-full relative mt-5">
+      <div className="w-full relative">
         <Image
           className="z-0"
-          src={url}
-          alt={fileName}
+          src={image}
+          alt={slug}
           placeholder="blur"
           blurDataURL={`data:image/svg+xml;base64,${toBase64(
-            shimmer(width, height)
+            shimmer(612, 350)
           )}`}
           layout="responsive"
           objectFit="content"
-          width={width}
-          height={height}
+          width={612}
+          height={350}
         />
-      </div> */}
+      </div>
       {/* {!isDetailed && (
           <Link
             href={{
