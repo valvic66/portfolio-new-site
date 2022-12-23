@@ -4,7 +4,6 @@ import { shimmer, toBase64 } from '../utils';
 import { PostTag } from './PostTag';
 
 export const BlogPost = ({ post }) => {
-  console.log({ post });
   const { slug, title, date, tags, image } = post ?? {};
 
   return (
