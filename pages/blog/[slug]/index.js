@@ -5,18 +5,18 @@ import { getPosts } from '@/lib/posts';
 import md from 'markdown-it';
 
 function PostDetailPage({ postBySlug }) {
+  const content = postBySlug?.content ?? '';
+
   return (
     <main className="prose max-w-[860px] mx-auto">
       <BlogPost post={postBySlug} />
-      <div
-        dangerouslySetInnerHTML={{ __html: md().render(postBySlug?.content) }}
-      />
+      <div dangerouslySetInnerHTML={{ __html: md().render(content) }} />
     </main>
   );
 }
 
 export async function getStaticPaths() {
-  const slugs = getPosts().map((post) => post.slug);
+  const slugs = getPosts()?.map((post) => post.slug);
 
   const slugPaths = slugs.map((slug) => ({
     params: { slug },
