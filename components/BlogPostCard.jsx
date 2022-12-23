@@ -6,12 +6,14 @@ import { ContentRenderer } from './ContentRenderer';
 import { PostTag } from './PostTag';
 
 export const BlogPostCard = ({ post }) => {
-  const { slug, title, tags, date, bannerImage } = post;
-  const { url, width, height, fileName } = bannerImage ?? {};
+  const { slug, title, date, 
+    // tags 
+  } = post;
+  // const { url, width, height, fileName } = bannerImage ?? {};
 
   return (
     <article className="grid md:grid-cols-[40%_60%] p-5 font-lato rounded bg-gray-100">
-      <div className="">
+      {/* <div className="">
         <Link
           href={{
             pathname: '/blog/[slug]',
@@ -34,16 +36,16 @@ export const BlogPostCard = ({ post }) => {
             />
           </div>
         </Link>
-      </div>
+      </div> */}
       <div className="flex flex-col md:justify-between md:p-3">
         <header>
-          <div className="mt-1">
+          {/* <div className="mt-1">
             <PostTag tags={tags} />
-          </div>
+          </div> */}
           <p className="text-xl sm:text-2xl md:text-3xl md:mt-3 font-semibold tracking-tight">
             <Link
               href={{
-                pathname: '/blog/[slug]',
+                pathname: '/b/[slug]',
                 query: {
                   slug,
                 },

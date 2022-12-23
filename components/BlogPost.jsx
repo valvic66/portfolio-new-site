@@ -6,8 +6,14 @@ import { ContentRenderer } from './ContentRenderer';
 import { PostTag } from './PostTag';
 
 export const BlogPost = ({ post }) => {
-  const { slug, title, subheading, tags, content, date, bannerImage } = post;
-  const { url, width, height, fileName } = bannerImage ?? {};
+  const { slug, title, date } =
+    // subheading,
+    // tags,
+    // content,
+    //  bannerImage
+    post;
+
+  // const { url, width, height, fileName } = bannerImage ?? {};
 
   return (
     <article className="grid grid-cols-1 p-5 font-lato max-w-[860px] mx-auto">
@@ -17,25 +23,24 @@ export const BlogPost = ({ post }) => {
             <p className="text-sm sm:text-sm text-right mr-1 uppercase text-gray-500">
               {new Date(date).toDateString()}
             </p>
-            <PostTag tags={tags} />
+            {/* <PostTag tags={tags} /> */}
           </div>
           <p className="text-xl sm:text-4xl font-semibold tracking-tight mt-5">
-            <Link
+            {/* <Link
               href={{
                 pathname: '/blog/[slug]',
                 query: {
                   slug,
                 },
               }}
-            >
+            > */}
               {title}
-            </Link>
+            {/* </Link> */}
           </p>
-          <p className="text-lg mt-2">{subheading}</p>
+          {/* <p className="text-lg mt-2">{subheading}</p> */}
         </header>
-        <footer></footer>
       </div>
-      <div className="w-full relative mt-5">
+      {/* <div className="w-full relative mt-5">
         <Image
           className="z-0"
           src={url}
@@ -49,7 +54,7 @@ export const BlogPost = ({ post }) => {
           width={width}
           height={height}
         />
-      </div>
+      </div> */}
       {/* {!isDetailed && (
           <Link
             href={{
@@ -65,9 +70,9 @@ export const BlogPost = ({ post }) => {
           </Link>
         )} */}
 
-      <div className="mt-10">
+      {/* <div className="mt-10">
         <ContentRenderer contentHtml={content?.html} />
-      </div>
+      </div> */}
     </article>
   );
 };
