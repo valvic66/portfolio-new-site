@@ -1,20 +1,23 @@
 import { BlogPostCard } from '@/components/BlogPostCard';
 import { getPosts } from '@/lib/posts';
+import { getTags } from '@/lib/tags';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 
-export default function Blog({ allPosts }) {
+export default function Blog({ allPosts, tags }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [postNames, setPostNames] = useState(
     allPosts.map((post) => post.title)
   );
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [isTag, setIsTag] = useState(false);
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
   useEffect(() => {
+    setIsTag(false);
     const posts = [...allPosts];
 
     const filteredPosts = posts.filter((post) =>
@@ -24,12 +27,21 @@ export default function Blog({ allPosts }) {
     setFilteredPosts(filteredPosts);
   }, [searchTerm]);
 
-  const activePosts = searchTerm.length < 0 ? allPosts : filteredPosts;
+  const handleTagClick = (tag) => {
+    setIsTag(true);
+    const posts = [...allPosts];
 
+    const filteredPosts = posts.filter((post) => post?.tags.includes(tag));
+
+    setFilteredPosts(filteredPosts);
+  };
+
+  console.log(isTag);
+  
   return (
     <section className="max-w-[860px] mx-auto">
       {/* {IS_POST_SEARCH_ENABLED && <PostSearch onSearch={handleSearch} />} */}
-      <div className="mb-4">
+      <div className="mb-4 mt-2">
         <label htmlFor="search" />
         <TextField
           fullWidth
@@ -40,8 +52,18 @@ export default function Blog({ allPosts }) {
           placeholder="search"
         />
       </div>
+      <div className="flex flex-wrap">
+        {tags?.map((tag, key) => (
+          <div
+            className="mr-3 cursor-pointer bg-green-400 rounded-md py-.5 px-2"
+            key={key}
+          >
+            <button onClick={() => handleTagClick(tag)}>{tag}</button>
+          </div>
+        ))}
+      </div>
       <div className="grid gap-1">
-        {activePosts?.map((post, key) => (
+        {filteredPosts?.map((post, key) => (
           <BlogPostCard post={post} key={key} />
         ))}
       </div>
@@ -51,10 +73,12 @@ export default function Blog({ allPosts }) {
 
 export async function getStaticProps() {
   const allPosts = getPosts();
+  const tags = getTags();
 
   return {
     props: {
       allPosts,
+      tags,
     },
   };
 }
