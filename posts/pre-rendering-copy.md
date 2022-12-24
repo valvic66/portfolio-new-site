@@ -1,6 +1,6 @@
 ---
-title: 'Two Forms of Pre-rendering'
-date: '2020-01-05'
+title: 'Two Forms of Pre-rendering copy'
+date: '2020-01-01'
 image: /static/images/api.png
 tags:
   - nextjs

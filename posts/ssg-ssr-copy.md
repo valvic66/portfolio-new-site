@@ -1,31 +1,18 @@
 ---
-title: 'Two Forms of Pre-rendering'
-date: '2020-01-05'
+title: 'When to Use Static Generation v.s. Server-side Rendering copy'
+date: '2020-03-02'
 image: /static/images/api.png
 tags:
   - nextjs
-  - pre-rendering
+  - SSR
+  - SSG
 ---
 
 Creating pages is an integral part of any framework. Today we'll be looking at three different types of pages that we can leverage in Next.js.
 
-1. Static pages (`/about`, `/contact`) 
+1. Static pages (`/about`, `/contact`)
 2. Dynamic page content (`/posts/all`)
 3. Dynamic page paths (`/posts/1`, `posts/2`)
-
-- Item 1
-- Item 2
-- Item 3
-  - Sub Item 1
-  - Sub Item 2
-
-or
-
-* Item 1
-* Item 2
-* Item 3
-  * Sub Item A
-  * Sub Item B
 
 Let's look at how we can create these in Next.js.
 

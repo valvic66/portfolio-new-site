@@ -10,7 +10,7 @@ function PostDetailPage({ postBySlug }) {
   return (
     <main className="prose max-w-[860px] mx-auto">
       <BlogPost post={postBySlug} />
-      <div dangerouslySetInnerHTML={{ __html: md().render(content) }} />
+      <div className='p-5' dangerouslySetInnerHTML={{ __html: md().render(content) }} />
     </main>
   );
 }

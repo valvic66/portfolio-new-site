@@ -1,6 +1,6 @@
 ---
 title: 'When to Use Static Generation v.s. Server-side Rendering'
-date: '2020-01-02'
+date: '2021-10-02'
 image: /static/images/api.png
 tags:
   - nextjs
