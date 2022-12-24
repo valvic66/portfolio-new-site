@@ -11,6 +11,7 @@ export default function Blog({ allPosts, tags }) {
   );
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [isTag, setIsTag] = useState(false);
+  const [focused, serFocused] = useState(false);
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
@@ -25,7 +26,7 @@ export default function Blog({ allPosts, tags }) {
     );
 
     setFilteredPosts(filteredPosts);
-  }, [searchTerm]);
+  }, [searchTerm, focused]);
 
   const handleTagClick = (tag) => {
     setIsTag(true);
@@ -36,8 +37,9 @@ export default function Blog({ allPosts, tags }) {
     setFilteredPosts(filteredPosts);
   };
 
-  console.log(isTag);
-  
+  const handleFocus = () => serFocused(true);
+  const handleBlur = () => serFocused(false);
+
   return (
     <section className="max-w-[860px] mx-auto">
       {/* {IS_POST_SEARCH_ENABLED && <PostSearch onSearch={handleSearch} />} */}
@@ -50,6 +52,8 @@ export default function Blog({ allPosts, tags }) {
           value={searchTerm}
           onChange={handleChange}
           placeholder="search"
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
       </div>
       <div className="flex flex-wrap">
