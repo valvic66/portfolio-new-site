@@ -11,7 +11,7 @@ export default function Blog({ allPosts, tags }) {
   );
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [isTag, setIsTag] = useState(false);
-  const [focused, serFocused] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
@@ -37,8 +37,8 @@ export default function Blog({ allPosts, tags }) {
     setFilteredPosts(filteredPosts);
   };
 
-  const handleFocus = () => serFocused(true);
-  const handleBlur = () => serFocused(false);
+  const handleFocus = () => setFocused(true);
+  const handleBlur = () => setFocused(false);
 
   return (
     <section className="max-w-[860px] mx-auto">
