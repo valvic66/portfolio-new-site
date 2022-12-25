@@ -49,7 +49,7 @@ export const BlogPostCard = ({ post }) => {
           <p className="text-xl sm:text-2xl md:text-3xl md:mt-3 font-semibold tracking-tight">
             <Link
               href={{
-                pathname: '/b/[slug]',
+                pathname: '/blog/[slug]',
                 query: {
                   slug,
                 },
