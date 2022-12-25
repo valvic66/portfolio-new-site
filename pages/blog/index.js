@@ -1,24 +1,18 @@
 import { BlogPostCard } from '@/components/BlogPostCard';
 import { getPosts } from '@/lib/posts';
 import { getTags } from '@/lib/tags';
+import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import { useEffect, useState } from 'react';
 
-export default function Blog({ allPosts, tags }) {
+export default function Blog({ allPosts, initialTags }) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [postNames, setPostNames] = useState(
-    allPosts.map((post) => post.title)
-  );
-  const [filteredPosts, setFilteredPosts] = useState([]);
-  const [isTag, setIsTag] = useState(false);
+  const [filteredPosts, setFilteredPosts] = useState(allPosts);
   const [focused, setFocused] = useState(false);
-
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+  const [tags, setTags] = useState([]);
+  const [isAllTag, setIsAllTag] = useState(true);
 
   useEffect(() => {
-    setIsTag(false);
     const posts = [...allPosts];
 
     const filteredPosts = posts.filter((post) =>
@@ -28,21 +22,11 @@ export default function Blog({ allPosts, tags }) {
     setFilteredPosts(filteredPosts);
   }, [searchTerm, focused]);
 
-  const handleTagClick = (tag) => {
-    setIsTag(true);
-    const posts = [...allPosts];
-
-    const filteredPosts = posts.filter((post) => post?.tags.includes(tag));
-
-    setFilteredPosts(filteredPosts);
-  };
-
   const handleFocus = () => setFocused(true);
   const handleBlur = () => setFocused(false);
 
   return (
-    <section className="max-w-[860px] mx-auto">
-      {/* {IS_POST_SEARCH_ENABLED && <PostSearch onSearch={handleSearch} />} */}
+    <section className="max-w-[860px] mx-auto p-2">
       <div className="mb-4 mt-2">
         <label htmlFor="search" />
         <TextField
@@ -50,26 +34,48 @@ export default function Blog({ allPosts, tags }) {
           id="search"
           name="search"
           value={searchTerm}
-          onChange={handleChange}
+          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="search"
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
       </div>
       <div className="flex flex-wrap">
-        {tags?.map((tag, key) => (
-          <div
-            className="mr-3 cursor-pointer bg-green-400 rounded-md py-.5 px-2"
+        <Chip
+          style={{ marginRight: 10 }}
+          color={isAllTag ? 'secondary' : 'default'}
+          variant="outlined"
+          label="all"
+          onClick={() => {
+            setIsAllTag(true);
+            setFilteredPosts(allPosts);
+          }}
+        />
+        {initialTags?.map((tag, key) => (
+          <Chip
+            style={{ marginRight: 10 }}
+            variant="outlined"
             key={key}
-          >
-            <button onClick={() => handleTagClick(tag)}>{tag}</button>
-          </div>
+            label={tag}
+            onClick={() => {
+              setIsAllTag(false);
+              const posts = [...allPosts];
+          
+              const filteredPosts = posts.filter((post) => post?.tags.includes(tag));
+          
+              setFilteredPosts(filteredPosts);
+            }}
+          />
         ))}
       </div>
       <div className="grid gap-1">
-        {filteredPosts?.map((post, key) => (
-          <BlogPostCard post={post} key={key} />
-        ))}
+        {filteredPosts?.map((post, key) => {
+          if (!isAllTag) {
+            return <BlogPostCard post={post} key={key} />;
+          } else {
+            return <BlogPostCard post={post} key={key} />;
+          }
+        })}
       </div>
     </section>
   );
@@ -77,12 +83,12 @@ export default function Blog({ allPosts, tags }) {
 
 export async function getStaticProps() {
   const allPosts = getPosts();
-  const tags = getTags();
+  const initialTags = getTags();
 
   return {
     props: {
       allPosts,
-      tags,
+      initialTags,
     },
   };
 }
