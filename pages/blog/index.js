@@ -9,7 +9,7 @@ export default function Blog({ allPosts, initialTags }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredPosts, setFilteredPosts] = useState(allPosts);
   const [focused, setFocused] = useState(false);
-  const [tags, setTags] = useState([]);
+  const [selectedTag, setSelectedTag] = useState('');
   const [isAllTag, setIsAllTag] = useState(true);
 
   useEffect(() => {
@@ -54,11 +54,13 @@ export default function Blog({ allPosts, initialTags }) {
         {initialTags?.map((tag, key) => (
           <Chip
             style={{ marginRight: 10 }}
+            color={!isAllTag && selectedTag === tag ? 'secondary' : 'default'}
             variant="outlined"
             key={key}
             label={tag}
             onClick={() => {
               setIsAllTag(false);
+              setSelectedTag(tag);
               const posts = [...allPosts];
 
               const filteredPosts = posts.filter((post) =>
