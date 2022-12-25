@@ -60,9 +60,11 @@ export default function Blog({ allPosts, initialTags }) {
             onClick={() => {
               setIsAllTag(false);
               const posts = [...allPosts];
-          
-              const filteredPosts = posts.filter((post) => post?.tags.includes(tag));
-          
+
+              const filteredPosts = posts.filter((post) =>
+                post?.tags.includes(tag)
+              );
+
               setFilteredPosts(filteredPosts);
             }}
           />
@@ -70,11 +72,7 @@ export default function Blog({ allPosts, initialTags }) {
       </div>
       <div className="grid gap-1">
         {filteredPosts?.map((post, key) => {
-          if (!isAllTag) {
-            return <BlogPostCard post={post} key={key} />;
-          } else {
-            return <BlogPostCard post={post} key={key} />;
-          }
+          return <BlogPostCard post={post} key={key} />;
         })}
       </div>
     </section>
