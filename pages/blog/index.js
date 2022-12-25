@@ -22,7 +22,10 @@ export default function Blog({ allPosts, initialTags }) {
     setFilteredPosts(filteredPosts);
   }, [searchTerm, focused]);
 
-  const handleFocus = () => setFocused(true);
+  const handleFocus = () => {
+    setSelectedTag('');
+    setFocused(true);
+  };
   const handleBlur = () => setFocused(false);
 
   return (
