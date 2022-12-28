@@ -2,10 +2,10 @@ import { BlogPostCard } from '@/components/BlogPostCard';
 import { getPosts } from '@/lib/posts';
 import { getTags } from '@/lib/tags';
 import { TextField, Pagination, Chip } from '@mui/material';
-import { useEffect, useState, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import { POSTS_PER_PAGE } from '@/constants/blog';
-import { initialState, reducer } from './store';
-import { useController } from './controller';
+import { initialState, reducer } from '@/lib/blog/store';
+import { useController } from '../../lib/blog/controller';
 
 export default function Blog({ allPosts, initialTags }) {
   const [blogStore, dispatch] = useReducer(reducer, initialState);
@@ -35,7 +35,7 @@ export default function Blog({ allPosts, initialTags }) {
     );
 
     dispatch({ type: 'SET_FILTERED_POSTS', payload: filteredPosts });
-  }, [searchTerm, focused]);
+  }, [searchTerm, focused, allPosts]);
 
   useEffect(() => {
     const start = (tabulationPage - 1) * POSTS_PER_PAGE + 1;
