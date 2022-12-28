@@ -40,6 +40,7 @@ export default function Blog({ allPosts, initialTags }) {
     setTabulationData((prevState) => ({
       ...prevState,
       count: filteredPosts?.length,
+      page: 1,
     }));
   }, [filteredPosts]);
 
@@ -115,6 +116,7 @@ export default function Blog({ allPosts, initialTags }) {
       <div>
         <Pagination
           count={Math.ceil(tabulationData?.count / POSTS_PER_PAGE)}
+          page={tabulationData?.page}
           onChange={handlePageChange}
         />
       </div>
