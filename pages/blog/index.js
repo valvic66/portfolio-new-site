@@ -1,10 +1,10 @@
 import { BlogPostCard } from '@/components/BlogPostCard';
 import { getPosts } from '@/lib/posts';
 import { getTags } from '@/lib/tags';
-import Chip from '@mui/material/Chip';
-import TextField from '@mui/material/TextField';
-import Pagination from '@mui/material/Pagination';
+import { TextField, Pagination, Chip } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { POSTS_PER_PAGE } from '@/constants/blog';
+import { useBlogController } from './blogController';
 
 export default function Blog({ allPosts, initialTags }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,8 +12,6 @@ export default function Blog({ allPosts, initialTags }) {
   const [focused, setFocused] = useState(false);
   const [selectedTag, setSelectedTag] = useState('');
   const [isAllTag, setIsAllTag] = useState(true);
-
-  const POSTS_PER_PAGE = 2;
   const [tabulationData, setTabulationData] = useState({
     count: filteredPosts?.length,
     page: 1,
@@ -30,11 +28,15 @@ export default function Blog({ allPosts, initialTags }) {
     setFilteredPosts(filteredPosts);
   }, [searchTerm, focused]);
 
-  const handleFocus = () => {
-    setSelectedTag('');
-    setFocused(true);
-  };
-  const handleBlur = () => setFocused(false);
+  useEffect(() => {
+    const start = (tabulationData?.page - 1) * POSTS_PER_PAGE + 1;
+    const end = Math.min(
+      tabulationData?.page * POSTS_PER_PAGE,
+      tabulationData.count
+    );
+
+    setTabulationPosts(filteredPosts?.slice(start - 1, end));
+  }, [filteredPosts, tabulationData]);
 
   useEffect(() => {
     setTabulationData((prevState) => ({
@@ -51,15 +53,12 @@ export default function Blog({ allPosts, initialTags }) {
     }));
   };
 
-  useEffect(() => {
-    const start = (tabulationData?.page - 1) * POSTS_PER_PAGE + 1;
-    const end = Math.min(
-      tabulationData?.page * POSTS_PER_PAGE,
-      tabulationData.count
-    );
+  const handleFocus = () => {
+    setSelectedTag('');
+    setFocused(true);
+  };
 
-    setTabulationPosts(filteredPosts?.slice(start - 1, end));
-  }, [filteredPosts, tabulationData]);
+  const handleBlur = () => setFocused(false);
 
   return (
     <section className="max-w-[860px] mx-auto p-2">
