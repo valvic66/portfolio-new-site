@@ -2,21 +2,30 @@ import { BlogPostCard } from '@/components/BlogPostCard';
 import { getPosts } from '@/lib/posts';
 import { getTags } from '@/lib/tags';
 import { TextField, Pagination, Chip } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useReducer } from 'react';
 import { POSTS_PER_PAGE } from '@/constants/blog';
-import { useBlogController } from './blogController';
+import { initialState, reducer } from './store';
+import { useController } from './controller';
 
 export default function Blog({ allPosts, initialTags }) {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filteredPosts, setFilteredPosts] = useState(allPosts);
-  const [focused, setFocused] = useState(false);
-  const [selectedTag, setSelectedTag] = useState('');
-  const [isAllTag, setIsAllTag] = useState(true);
-  const [tabulationData, setTabulationData] = useState({
-    count: filteredPosts?.length,
-    page: 1,
-  });
-  const [tabulationPosts, setTabulationPosts] = useState(null);
+  const [blogStore, dispatch] = useReducer(reducer, initialState);
+  const {
+    searchTerm,
+    filteredPosts,
+    focused,
+    selectedTag,
+    isAllTag,
+    postsCount,
+    tabulationPage,
+    tabulationPosts,
+  } = blogStore;
+
+  const controllerOptions = {
+    blogStore,
+    dispatch,
+  };
+  const { handlePageChange, handleFocus, handleBlur } =
+    useController(controllerOptions);
 
   useEffect(() => {
     const posts = [...allPosts];
@@ -25,40 +34,23 @@ export default function Blog({ allPosts, initialTags }) {
       post.title.toLowerCase().includes(searchTerm.toLowerCase().trim())
     );
 
-    setFilteredPosts(filteredPosts);
+    dispatch({ type: 'SET_FILTERED_POSTS', payload: filteredPosts });
   }, [searchTerm, focused]);
 
   useEffect(() => {
-    const start = (tabulationData?.page - 1) * POSTS_PER_PAGE + 1;
-    const end = Math.min(
-      tabulationData?.page * POSTS_PER_PAGE,
-      tabulationData.count
-    );
+    const start = (tabulationPage - 1) * POSTS_PER_PAGE + 1;
+    const end = Math.min(tabulationPage * POSTS_PER_PAGE, postsCount);
 
-    setTabulationPosts(filteredPosts?.slice(start - 1, end));
-  }, [filteredPosts, tabulationData]);
+    dispatch({
+      type: 'SET_TABULATION_POSTS',
+      payload: filteredPosts?.slice(start - 1, end),
+    });
+  }, [filteredPosts, postsCount, tabulationPage]);
 
   useEffect(() => {
-    setTabulationData((prevState) => ({
-      ...prevState,
-      count: filteredPosts?.length,
-      page: 1,
-    }));
+    dispatch({ type: 'SET_POSTS_COUNT', payload: filteredPosts.length });
+    dispatch({ type: 'SET_TABULATION_PAGE', payload: 1 });
   }, [filteredPosts]);
-
-  const handlePageChange = (e, page) => {
-    setTabulationData((prevState) => ({
-      ...prevState,
-      page,
-    }));
-  };
-
-  const handleFocus = () => {
-    setSelectedTag('');
-    setFocused(true);
-  };
-
-  const handleBlur = () => setFocused(false);
 
   return (
     <section className="max-w-[860px] mx-auto p-2">
@@ -69,7 +61,9 @@ export default function Blog({ allPosts, initialTags }) {
           id="search"
           name="search"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) =>
+            dispatch({ type: 'SET_SEARCH_TERM', payload: e.target.value })
+          }
           placeholder="search"
           onFocus={handleFocus}
           onBlur={handleBlur}
@@ -82,8 +76,7 @@ export default function Blog({ allPosts, initialTags }) {
           variant="outlined"
           label="all"
           onClick={() => {
-            setIsAllTag(true);
-            setFilteredPosts(allPosts);
+            dispatch({ type: 'SET_FILTERED_POSTS', payload: allPosts });
           }}
         />
         {initialTags?.map((tag, key) => (
@@ -94,15 +87,15 @@ export default function Blog({ allPosts, initialTags }) {
             key={key}
             label={tag}
             onClick={() => {
-              setIsAllTag(false);
-              setSelectedTag(tag);
-              const posts = [...allPosts];
+              dispatch({ type: 'SET_IS_ALL_TAG', payload: false });
+              dispatch({ type: 'SET_SELECTED_TAG', payload: tag });
 
+              const posts = [...allPosts];
               const filteredPosts = posts.filter((post) =>
                 post?.tags.includes(tag)
               );
 
-              setFilteredPosts(filteredPosts);
+              dispatch({ type: 'SET_FILTERED_POSTS', payload: filteredPosts });
             }}
           />
         ))}
@@ -114,8 +107,8 @@ export default function Blog({ allPosts, initialTags }) {
       </div>
       <div>
         <Pagination
-          count={Math.ceil(tabulationData?.count / POSTS_PER_PAGE)}
-          page={tabulationData?.page}
+          count={Math.ceil(postsCount / POSTS_PER_PAGE)}
+          page={tabulationPage}
           onChange={handlePageChange}
         />
       </div>
