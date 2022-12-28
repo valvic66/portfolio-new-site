@@ -3,6 +3,7 @@ import { getPosts } from '@/lib/posts';
 import { getTags } from '@/lib/tags';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
+import Pagination from '@mui/material/Pagination';
 import { useEffect, useState } from 'react';
 
 export default function Blog({ allPosts, initialTags }) {
@@ -11,6 +12,13 @@ export default function Blog({ allPosts, initialTags }) {
   const [focused, setFocused] = useState(false);
   const [selectedTag, setSelectedTag] = useState('');
   const [isAllTag, setIsAllTag] = useState(true);
+
+  const POSTS_PER_PAGE = 2;
+  const [tabulationData, setTabulationData] = useState({
+    count: filteredPosts?.length,
+    page: 1,
+  });
+  const [tabulationPosts, setTabulationPosts] = useState(null);
 
   useEffect(() => {
     const posts = [...allPosts];
@@ -27,6 +35,30 @@ export default function Blog({ allPosts, initialTags }) {
     setFocused(true);
   };
   const handleBlur = () => setFocused(false);
+
+  useEffect(() => {
+    setTabulationData((prevState) => ({
+      ...prevState,
+      count: filteredPosts?.length,
+    }));
+  }, [filteredPosts]);
+
+  const handlePageChange = (e, page) => {
+    setTabulationData((prevState) => ({
+      ...prevState,
+      page,
+    }));
+  };
+
+  useEffect(() => {
+    const start = (tabulationData?.page - 1) * POSTS_PER_PAGE + 1;
+    const end = Math.min(
+      tabulationData?.page * POSTS_PER_PAGE,
+      tabulationData.count
+    );
+
+    setTabulationPosts(filteredPosts?.slice(start - 1, end));
+  }, [filteredPosts, tabulationData]);
 
   return (
     <section className="max-w-[860px] mx-auto p-2">
@@ -76,9 +108,15 @@ export default function Blog({ allPosts, initialTags }) {
         ))}
       </div>
       <div className="grid gap-1">
-        {filteredPosts?.map((post, key) => {
+        {tabulationPosts?.map((post, key) => {
           return <BlogPostCard post={post} key={key} />;
         })}
+      </div>
+      <div>
+        <Pagination
+          count={Math.ceil(tabulationData?.count / POSTS_PER_PAGE)}
+          onChange={handlePageChange}
+        />
       </div>
     </section>
   );
