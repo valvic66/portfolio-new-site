@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { MOCKED_PROJECTS } from '@/constants/projects';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { Stack } from '@/components/Stack';
 
 import { Navigation, Pagination, Scrollbar, A11y, EffectCube } from 'swiper';
@@ -28,14 +28,12 @@ export default function Projects({ project }) {
         >
           {imageSrc?.map((src, key) => (
             <SwiperSlide key={key}>
-              <Image
+              <img
                 className=""
                 src={src}
                 alt={name}
                 width={width}
                 height={height}
-                layout="responsive"
-                priority
               />
             </SwiperSlide>
           ))}

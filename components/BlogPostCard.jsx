@@ -1,4 +1,4 @@
-import Image from 'next/image';
+// import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { shimmer, toBase64 } from '../utils';
@@ -6,13 +6,7 @@ import { ContentRenderer } from './ContentRenderer';
 import { PostTag } from './PostTag';
 
 export const BlogPostCard = ({ post }) => {
-  const {
-    slug,
-    title,
-    date,
-    image,
-    tags
-  } = post;
+  const { slug, title, date, image, tags } = post;
   // const { url, width, height, fileName } = bannerImage ?? {};
 
   return (
@@ -27,17 +21,7 @@ export const BlogPostCard = ({ post }) => {
           }}
         >
           <div className="w-full relative h-60 sm:h-72 md:h-44 cursor-pointer">
-            <Image
-              className="z-0"
-              src={image}
-              alt={slug}
-              placeholder="blur"
-              blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                shimmer(612, 350)
-              )}`}
-              layout="fill"
-              objectFit="cover"
-            />
+            <img className="z-0" src={image} alt={slug} />
           </div>
         </Link>
       </div>

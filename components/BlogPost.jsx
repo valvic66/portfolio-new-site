@@ -1,4 +1,4 @@
-import Image from 'next/image';
+// import Image from 'next/image';
 import React from 'react';
 import { shimmer, toBase64 } from '../utils';
 import { PostTag } from './PostTag';
@@ -22,19 +22,7 @@ export const BlogPost = ({ post }) => {
         </header>
       </div>
       <div className="w-full relative">
-        <Image
-          className="z-0"
-          src={image}
-          alt={slug}
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(
-            shimmer(612, 350)
-          )}`}
-          layout="responsive"
-          objectFit="content"
-          width={612}
-          height={350}
-        />
+        <img className="z-0" src={image} alt={slug} width={612} height={350} />
       </div>
       {/* {!isDetailed && (
           <Link
