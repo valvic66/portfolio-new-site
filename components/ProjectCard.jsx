@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { shimmer, toBase64 } from '../utils';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -26,17 +26,16 @@ export const ProjectCard = ({
   return (
     <div className="w-full shadow-md p-3">
       <div className="group hover:bg-blue-900 relative rounded-md">
-        <Image
+        <img
           className="group-hover:opacity-40 relative w-full h-auto"
           src={imageSrc[0]}
           alt={name}
           width={width}
           height={height}
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(
-            shimmer(width, height)
-          )}`}
-          layout="responsive"
+          // placeholder="blur"
+          // blurDataURL={`data:image/svg+xml;base64,${toBase64(
+          //   shimmer(width, height)
+          // )}`}
         />
         <div className="hidden absolute group-hover:flex top-0 text-center flex-col justify-around items-center w-full h-full">
           <h3 className="text-white">{name}</h3>

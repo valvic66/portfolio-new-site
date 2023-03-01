@@ -5,7 +5,7 @@ const nextConfig = {
   images: {
     domains: ['media.graphassets.com'],
     loader: 'akamai',
-    path: '',
+    path: 'path',
   },
 };
 

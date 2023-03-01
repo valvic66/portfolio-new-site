@@ -6,7 +6,7 @@ import { MediaIcon } from './MediaIcon';
 export const MediaIcons = () => {
   const renderLink = (href, children) => {
     return (
-      <Link href={href} passHref={true}>
+      <Link href={href} passHref={true} legacyBehavior>
         <a target="_blank" rel="noopener noreferrer">
           {children}
         </a>

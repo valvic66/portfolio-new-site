@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Link from 'next/link';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 import { RoughNotationGroup } from 'react-rough-notation';
@@ -37,17 +37,12 @@ export const About = () => {
           </div>
         </div>
         <div className="col-span-1 w-full h-auto">
-          <Image
+          <img
             className="relative z-0 rounded-md"
             src="/static/images/me-image-1.jpg"
             alt="my own image"
-            placeholder="blur"
-            blurDataURL={`data:image/svg+xml;base64,${toBase64(
-              shimmer(970, 1296)
-            )}`}
             width="970"
             height="1296"
-            layout="responsive"
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+// import Image from 'next/image';
 import React, { useRef } from 'react';
 import { RoughNotationGroup } from 'react-rough-notation';
 import { intersectionOptions } from '../constants';
@@ -33,17 +33,12 @@ export const Contact = () => {
           </div>
         </div>
         <div className="col-span-1 w-full h-auto mx-auto">
-          <Image
+          <img
             className="relative z-0 rounded-md"
             src="/static/images/contact-me.jpg"
             alt="contact image"
-            placeholder="blur"
-            blurDataURL={`data:image/svg+xml;base64,${toBase64(
-              shimmer(1920, 1280)
-            )}`}
             width="1920"
             height="1280"
-            layout="responsive"
           />
         </div>
       </div>

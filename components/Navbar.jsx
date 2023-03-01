@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { Hamburger } from './Hamburger';
 import { MediaIcons } from './MediaIcons';
 import {
@@ -75,21 +75,20 @@ export const Navbar = ({ authenticated }) => {
       <div
         className={
           isShadowVisible
-            ? 'fixed z-10 w-full h-14 flex items-center bg-white'
-            : 'fixed z-10 w-full h-14 flex shadow-md items-center bg-white'
+            ? 'fixed z-10 w-full flex bg-white h-14 px-4'
+            : 'fixed z-10 w-full flex shadow-md bg-white h-14 px-4'
         }
       >
-        <div className="flex justify-between items-center w-full px-3 2xl:px-16">
+        <div className="flex justify-between items-center w-full 2xl:px-16">
           <div
             className={
-              !isNavVisible ? 'pl-2 pt-0.5 cursor-pointer' : 'invisible'
+              !isNavVisible ? 'cursor-pointer' : 'invisible'
             }
           >
-            <Image
+            <img
               src="/static/images/logo.png"
               alt="logo image"
-              width="90"
-              height="20"
+              width="50"
               onClick={() => Router.push('/')}
             />
           </div>
@@ -102,7 +101,7 @@ export const Navbar = ({ authenticated }) => {
                 type={menuItem.type}
                 label={menuItem.label}
                 onClick={handleMenuClose}
-                className="px-3 text-sm uppercase list-none"
+                className="text-sm uppercase list-none px-2"
               />
             ))}
             {IS_AUTH_ENABLED && (
@@ -115,7 +114,7 @@ export const Navbar = ({ authenticated }) => {
                     type={menuItem.type}
                     label={menuItem.label}
                     onClick={handleMenuClose}
-                    className="px-3 text-sm uppercase list-none"
+                    className="text-sm uppercase list-none"
                   />
                 ))}
               </>
@@ -130,23 +129,22 @@ export const Navbar = ({ authenticated }) => {
       <div
         className={
           isNavVisible
-            ? 'fixed z-10 top-0 left-0 h-screen w-[80%] bg-gray-100 border-r border-gray-300 ease-in duration-200 p-4 overflow-scroll'
-            : 'fixed top-0 left-[-100%] ease-in duration-75 p-4'
+            ? 'fixed z-10 top-0 left-0 h-screen w-[80%] bg-gray-100 border-r border-gray-300 ease-in duration-200 overflow-scroll px-4'
+            : 'fixed top-0 left-[-100%] ease-in duration-75 px-4'
         }
       >
-        <div className="flex justify-between items-center">
-          <div className="ml-1 cursor-pointer">
-            <Image
+        <div className="flex justify-between items-center h-14">
+          <div className="cursor-pointer">
+            <img
               src="/static/images/logo.png"
               alt="logo image"
-              width="90"
-              height="20"
+              width="50"
               onClick={handleMenuClose}
             />
           </div>
         </div>
         <div className="border-b border-gray-300 my-2">
-          <p className="w-[85%] md:w-[90%] py-2 text-sm">
+          <p className="w-[85%] md:w-[90%] text-sm">
             {"Let's build something amazing together"}
           </p>
         </div>
