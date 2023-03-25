@@ -39,10 +39,10 @@ function PostDetailPage({ postBySlug }) {
         />
       </div>
       <Link href={'/blog'} className="no-underline">
-        <div className="text-sm text-[#05192f] fixed bg-white hover:bg-slate-100 z-1 right-1 bottom-1 py-1 px-2">
-          <span>{String.fromCharCode(8592)}</span>
+        <div className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-1 right-1 bottom-1 py-1 px-3">
+          {"<"}
           &nbsp;
-          <span className="">Go back</span>
+          Back to posts
         </div>
       </Link>
       <BlogPost post={postBySlug} />
