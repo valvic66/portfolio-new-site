@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { SvgSpinner } from '@/components/SvgSpinner';
+import Button from '@mui/material/Button';
+import Link from 'next/link';
 import { BlogPost } from '@/components/BlogPost';
 import { getPosts } from '@/lib/posts';
 import md from 'markdown-it';
@@ -24,7 +26,7 @@ function PostDetailPage({ postBySlug }) {
   }, []);
 
   const content = postBySlug?.content ?? '';
-  console.log({ scroll });
+
   return (
     <main className="prose max-w-[860px] mx-auto">
       <div id="progressBarContainer">
@@ -36,6 +38,13 @@ function PostDetailPage({ postBySlug }) {
           }}
         />
       </div>
+      <Link href={'/blog'} className="no-underline">
+        <Button className='text-xl font-extrabold text-[#05192f] p-1 fixed bg-white z-10 right-2 bottom-2 py-0 px-2'>
+          {String.fromCharCode(8592)}
+          &nbsp;
+          <span className='text-xs'> Go back</span>
+        </Button>
+      </Link>
       <BlogPost post={postBySlug} />
       <div
         className="p-5"
