@@ -39,11 +39,11 @@ function PostDetailPage({ postBySlug }) {
         />
       </div>
       <Link href={'/blog'} className="no-underline">
-        <Button className='text-xl font-extrabold text-[#05192f] p-1 fixed bg-white z-10 right-2 bottom-2 py-0 px-2'>
-          {String.fromCharCode(8592)}
+        <div className="text-sm text-[#05192f] fixed bg-white hover:bg-slate-100 z-1 right-1 bottom-1 py-1 px-2">
+          <span>{String.fromCharCode(8592)}</span>
           &nbsp;
-          <span className='text-xs'> Go back</span>
-        </Button>
+          <span className="">Go back</span>
+        </div>
       </Link>
       <BlogPost post={postBySlug} />
       <div
