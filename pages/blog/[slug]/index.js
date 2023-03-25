@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { BlogPost } from '@/components/BlogPost';
 import { getPosts } from '@/lib/posts';
 import md from 'markdown-it';
+import { RiArrowGoBackFill } from 'react-icons/ri';
 
 function PostDetailPage({ postBySlug }) {
   const [scroll, setScroll] = useState(0);
@@ -39,11 +40,7 @@ function PostDetailPage({ postBySlug }) {
         />
       </div>
       <Link href={'/blog'} className="no-underline">
-        <div className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-1 right-1 bottom-1 py-1 px-3">
-          {"<"}
-          &nbsp;
-          Back to posts
-        </div>
+        <RiArrowGoBackFill className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-1 right-3 bottom-3 py-1 px-3 shadow-md rounded-full w-11 h-11 flex justify-center align-center" />
       </Link>
       <BlogPost post={postBySlug} />
       <div

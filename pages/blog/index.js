@@ -6,6 +6,8 @@ import { useEffect, useReducer } from 'react';
 import { POSTS_PER_PAGE } from '@/constants/blog';
 import { initialState, reducer } from '@/lib/blog/store';
 import { useController } from '../../lib/blog/controller';
+import Link from 'next/link';
+import { RiArrowGoBackFill } from 'react-icons/ri';
 
 export default function Blog({ allPosts, initialTags }) {
   const [blogStore, dispatch] = useReducer(reducer, initialState);
@@ -54,6 +56,9 @@ export default function Blog({ allPosts, initialTags }) {
 
   return (
     <section className="max-w-[860px] mx-auto p-2">
+      <Link href={'/'} className="no-underline">
+        <RiArrowGoBackFill className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-10 right-3 bottom-3 py-1 px-3 shadow-md rounded-full w-11 h-11 flex justify-center align-center" />
+      </Link>
       <div className="mb-4 mt-2">
         <label htmlFor="search" />
         <TextField
