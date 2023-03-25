@@ -16,7 +16,7 @@ function PostDetailPage({ postBySlug }) {
       const windowHeight =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
-      const scroll = `${totalScroll / windowHeight}`;
+      const scroll = Number(`${totalScroll / windowHeight}`);
 
       setScroll(scroll);
     };
@@ -27,20 +27,22 @@ function PostDetailPage({ postBySlug }) {
   }, []);
 
   const content = postBySlug?.content ?? '';
-
+  console.log(scroll, !!scroll);
   return (
     <main className="prose max-w-[860px] mx-auto">
-      <div id="progressBarContainer">
-        <div
-          id="progressBar"
-          style={{
-            transform: `scale(${scroll}, 1)`,
-            // opacity: `${scroll}`,
-          }}
-        />
-      </div>
+      {!!scroll && (
+        <div id="progressBarContainer">
+          <div
+            id="progressBar"
+            style={{
+              transform: `scale(${scroll}, 1)`,
+              // opacity: `${scroll}`,
+            }}
+          />
+        </div>
+      )}
       <Link href={'/blog'} className="no-underline">
-        <RiArrowGoBackFill className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-1 right-3 bottom-3 py-1 px-3 shadow-md rounded-full w-11 h-11 flex justify-center align-center" />
+        <RiArrowGoBackFill className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-1 right-3 bottom-3 py-1 px-3 shadow-md rounded-full w-11 h-11 flex justify-center align-center hover:border-white hover:border" />
       </Link>
       <BlogPost post={postBySlug} />
       <div

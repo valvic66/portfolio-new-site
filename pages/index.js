@@ -11,6 +11,8 @@ import { useRouter } from 'next/router';
 import { APP_ROUTES } from '../constants/routes';
 import { IS_AUTH_ENABLED } from '../constants/env';
 import { useLocalStorage } from 'react-use';
+import Link from 'next/link';
+import { RiArrowUpLine } from 'react-icons/ri';
 
 function Home() {
   const router = useRouter();
@@ -19,6 +21,7 @@ function Home() {
   const [token, setToken] = useLocalStorage('token', '');
   const [user, setUser] = useLocalStorage('user', {});
   const [authenticated, setAuthenticated] = useState(false);
+  const [scroll, setScroll] = useState(0);
 
   useEffect(() => {
     const checkAuth = () => {
@@ -33,6 +36,22 @@ function Home() {
 
     IS_AUTH_ENABLED && checkAuth();
   }, [router, setToken, setUser, token, user, saveToken, saveUser]);
+
+  useEffect(() => {
+    const progressBarScroll = () => {
+      const totalScroll = document.documentElement.scrollTop;
+      const windowHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scroll = Number(`${totalScroll / windowHeight}`);
+
+      setScroll(scroll);
+    };
+
+    window.addEventListener('scroll', progressBarScroll);
+
+    return () => window.removeEventListener('scroll', progressBarScroll);
+  }, []);
 
   if (IS_AUTH_ENABLED && !authenticated) {
     return (
@@ -54,6 +73,11 @@ function Home() {
       <Projects />
       <Skills />
       <Contact />
+      {scroll && (
+        <Link href={'/'} className="no-underline">
+          <RiArrowUpLine className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-10 right-3 bottom-3 py-1 px-3 drop-shadow-md shadow-md rounded-full w-11 h-11 flex justify-center align-center" />
+        </Link>
+      )}
     </main>
   );
 }
