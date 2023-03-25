@@ -24,7 +24,7 @@ export const MenuItem = ({ path, label, type, onClick, className, active }) => {
   }
 
   return active ? (
-    <Link href={finalPath}>
+    <Link href={finalPath} scroll={false}>
       <li onClick={onClick} className={className}>
         {label}
       </li>
