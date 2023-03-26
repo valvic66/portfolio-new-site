@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { BlogPost } from '@/components/BlogPost';
 import { getPosts } from '@/lib/posts';
 import md from 'markdown-it';
-import { RiArrowGoBackFill } from 'react-icons/ri';
+import { RiArrowGoBackFill, RiArrowUpLine } from 'react-icons/ri';
 
 function PostDetailPage({ postBySlug }) {
   const [scroll, setScroll] = useState(0);
@@ -27,7 +27,7 @@ function PostDetailPage({ postBySlug }) {
   }, []);
 
   const content = postBySlug?.content ?? '';
-  console.log(scroll, !!scroll);
+
   return (
     <main className="prose max-w-[860px] mx-auto">
       {!!scroll && (
@@ -42,13 +42,23 @@ function PostDetailPage({ postBySlug }) {
         </div>
       )}
       <Link href={'/blog'} className="no-underline">
-        <RiArrowGoBackFill className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-1 right-3 bottom-3 py-1 px-3 shadow-md rounded-full w-11 h-11 flex justify-center align-center hover:border-white hover:border" />
+        <RiArrowGoBackFill className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-10 right-4 top-4 py-1 px-3 shadow-md rounded-full w-12 h-12 flex justify-center align-center hover:border-white hover:border" />
       </Link>
-      <BlogPost post={postBySlug} />
+      <div className="pt-10">
+        <BlogPost post={postBySlug} />
+      </div>
       <div
         className="p-5"
         dangerouslySetInnerHTML={{ __html: md().render(content) }}
       />
+      {!!scroll && (
+        <RiArrowUpLine
+          onClick={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+          }}
+          className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-10 right-4 bottom-4 py-1 px-3 shadow-md rounded-full w-12 h-12 flex justify-center align-center hover:border-white hover:border"
+        />
+      )}
     </main>
   );
 }

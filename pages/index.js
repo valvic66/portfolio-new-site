@@ -74,9 +74,12 @@ function Home() {
       <Skills />
       <Contact />
       {scroll && (
-        <Link href={'/'} className="no-underline">
-          <RiArrowUpLine className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-10 right-3 bottom-3 py-1 px-3 drop-shadow-md shadow-md rounded-full w-11 h-11 flex justify-center align-center" />
-        </Link>
+        <RiArrowUpLine
+          onClick={() => {
+            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+          }}
+          className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-10 right-4 bottom-4 py-1 px-3 drop-shadow-md shadow-md rounded-full w-12 h-12 flex justify-center align-center hover:border-white hover:border"
+        />
       )}
     </main>
   );
