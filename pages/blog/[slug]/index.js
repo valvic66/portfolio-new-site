@@ -56,7 +56,7 @@ function PostDetailPage({ postBySlug }) {
           onClick={() => {
             window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
           }}
-          className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-10 right-4 bottom-4 py-1 px-3 shadow-md rounded-full w-12 h-12 flex justify-center align-center hover:border-white hover:border"
+          className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-10 right-4 bottom-4 py-1 px-3 shadow-md rounded-full w-12 h-12 flex justify-center align-center hover:border-white hover:border cursor-pointer"
         />
       )}
     </main>
