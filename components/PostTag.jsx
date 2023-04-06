@@ -6,6 +6,7 @@ export const PostTag = ({ tags }) => {
     <section className="flex">
       {tags?.map((tag, key) => (
         <Chip
+          key={key}
           style={{ marginRight: 10 }}
           color={'default'}
           variant="outlined"
