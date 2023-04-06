@@ -19,3 +19,39 @@ export const toBase64 = (str) =>
 export const removeFromLocalStorage = (name) => {
   localStorage.removeItem(name);
 };
+
+export const getFormattedDate = (d) => {
+  const weekdays = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  const months = [
+    'Janurary',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  const date = new Date(d);
+  const [day, month, year, weekDay] = [
+    date.getDate(),
+    months[date.getMonth()],
+    date.getFullYear(),
+    weekdays[date.getDay()],
+  ];
+
+  return `${month} ${day}, ${year}`;
+};

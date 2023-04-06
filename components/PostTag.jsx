@@ -1,12 +1,17 @@
 import React from 'react';
+import { Chip } from '@mui/material';
 
 export const PostTag = ({ tags }) => {
   return (
-    <section className="">
+    <section className="flex">
       {tags?.map((tag, key) => (
-        <span key={key} className=" text-xs sm:text-sm mr-1 text-gray-600">
-          #{tag}
-        </span>
+        <Chip
+          style={{ marginRight: 10 }}
+          color={'default'}
+          variant="outlined"
+          label={`#${tag}`}
+          onClick={() => {}}
+        />
       ))}
     </section>
   );

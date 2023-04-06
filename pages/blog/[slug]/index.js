@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { SvgSpinner } from '@/components/SvgSpinner';
-import Button from '@mui/material/Button';
 import Link from 'next/link';
 import { BlogPost } from '@/components/BlogPost';
 import { getPosts } from '@/lib/posts';
@@ -29,7 +27,7 @@ function PostDetailPage({ postBySlug }) {
   const content = postBySlug?.content ?? '';
 
   return (
-    <main className="prose max-w-[860px] mx-auto">
+    <div className="max-w-4xl mx-auto font-roboto bg-white/95">
       {!!scroll && (
         <div id="progressBarContainer">
           <div
@@ -44,13 +42,13 @@ function PostDetailPage({ postBySlug }) {
       <Link href={'/blog'} className="no-underline">
         <RiArrowGoBackFill className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-10 right-4 top-4 py-1 px-3 shadow-md rounded-full w-12 h-12 flex justify-center align-center hover:border-white hover:border" />
       </Link>
-      <div className="pt-10">
+      <section className='p-3 pt-10'>
         <BlogPost post={postBySlug} />
-      </div>
-      <div
-        className="p-5"
-        dangerouslySetInnerHTML={{ __html: md().render(content) }}
-      />
+        <article
+          className="prose prose-slate lg:prose-lg max-w-4xl mx-auto px-5 pt-6"
+          dangerouslySetInnerHTML={{ __html: md().render(content) }}
+        />
+      </section>
       {!!scroll && (
         <RiArrowUpLine
           onClick={() => {
@@ -59,7 +57,7 @@ function PostDetailPage({ postBySlug }) {
           className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-10 right-4 bottom-4 py-1 px-3 shadow-md rounded-full w-12 h-12 flex justify-center align-center hover:border-white hover:border cursor-pointer"
         />
       )}
-    </main>
+    </div>
   );
 }
 

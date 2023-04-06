@@ -10,7 +10,7 @@ export const BlogPostCard = ({ post }) => {
   // const { url, width, height, fileName } = bannerImage ?? {};
 
   return (
-    <article className="grid md:grid-cols-[40%_60%] p-5 font-lato rounded bg-gray-100">
+    <article className="grid md:grid-cols-[40%_60%] p-5 rounded bg-gray-100">
       <div className="">
         <Link
           href={{
