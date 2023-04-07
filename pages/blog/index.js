@@ -1,16 +1,17 @@
+import { useEffect, useReducer, useState } from 'react';
 import { BlogPostCard } from '@/components/BlogPostCard';
 import { getPosts } from '@/lib/posts';
 import { getTags } from '@/lib/tags';
 import { TextField, Pagination, Chip } from '@mui/material';
-import { useEffect, useReducer } from 'react';
 import { POSTS_PER_PAGE } from '@/constants/blog';
 import { initialState, reducer } from '@/lib/blog/store';
 import { useController } from '../../lib/blog/controller';
 import Link from 'next/link';
-import { RiArrowGoBackFill } from 'react-icons/ri';
+import { RiArrowGoBackFill, RiFindReplaceLine } from 'react-icons/ri';
 
 export default function Blog({ allPosts, initialTags }) {
   const [blogStore, dispatch] = useReducer(reducer, initialState);
+  const [isSearchInputVisible, setIsSearchInputVisible] = useState(false);
   const {
     searchTerm,
     filteredPosts,
@@ -54,27 +55,62 @@ export default function Blog({ allPosts, initialTags }) {
     dispatch({ type: 'SET_TABULATION_PAGE', payload: 1 });
   }, [filteredPosts]);
 
+  const toggleSearchInput = () => {
+    setIsSearchInputVisible(!isSearchInputVisible);
+  };
+
   return (
     <section className="max-w-[860px] mx-auto p-2">
+      <header className="flex flex-wrap w-full items-center p-2">
+        <div
+          className={`basis-1/2 order-1 ${
+            isSearchInputVisible && 'md:basis-1/12'
+          }`}
+        >
+          <img
+            src="/static/images/logo.png"
+            alt="logo image"
+            width="50"
+            onClick={() => Router.push('/')}
+          />
+        </div>
+        {isSearchInputVisible && (
+          <div className="order-last md:order-2 w-full md:basis-5/12 mt-3 md:mt-0">
+            <label htmlFor="search" />
+            <TextField
+              sx={{
+                // width: { sm: 200, md: 300 }, 
+                '& .MuiInputBase-root': {
+                  height: {xs: 30, sm: 30, md: 30}
+                },
+              }}
+              fullWidth
+              id="search"
+              name="search"
+              value={searchTerm}
+              onChange={(e) =>
+                dispatch({ type: 'SET_SEARCH_TERM', payload: e.target.value })
+              }
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+            />
+          </div>
+        )}
+        <div
+          className={`basis-1/2 order-3 ${
+            isSearchInputVisible && 'md:basis-6/12'
+          } flex justify-end`}
+        >
+          <RiFindReplaceLine
+            className="text-3xl cursor-pointer"
+            onClick={toggleSearchInput}
+          />
+        </div>
+      </header>
       <Link href={'/'} className="no-underline">
         <RiArrowGoBackFill className="text-sm text-[#05192f] fixed bg-white hover:bg-[#05192f] hover:text-white z-10 right-4 bottom-4 py-1 px-3 shadow-md rounded-full w-12 h-12 flex justify-center align-center hover:border-white hover:border" />
       </Link>
-      <div className="mb-4 mt-2">
-        <label htmlFor="search" />
-        <TextField
-          fullWidth
-          id="search"
-          name="search"
-          value={searchTerm}
-          onChange={(e) =>
-            dispatch({ type: 'SET_SEARCH_TERM', payload: e.target.value })
-          }
-          placeholder="search"
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-        />
-      </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap mt-3">
         <Chip
           style={{ marginRight: 10 }}
           color={isAllTag ? 'secondary' : 'default'}
@@ -105,12 +141,12 @@ export default function Blog({ allPosts, initialTags }) {
           />
         ))}
       </div>
-      <div className="grid gap-1">
+      <div className="grid gap-6 mt-6">
         {tabulationPosts?.map((post, key) => {
           return <BlogPostCard post={post} key={key} />;
         })}
       </div>
-      <div>
+      <div className='mt-6'>
         <Pagination
           count={Math.ceil(postsCount / POSTS_PER_PAGE)}
           page={tabulationPage}
