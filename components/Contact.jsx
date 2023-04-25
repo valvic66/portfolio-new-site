@@ -7,6 +7,7 @@ import { MediaIcons } from './MediaIcons';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 import { shimmer, toBase64 } from '../utils';
 import { useIntersection } from 'react-use';
+import Flip from 'react-reveal/Flip';
 
 export const Contact = () => {
   const ref = useRef(null);
@@ -27,7 +28,9 @@ export const Contact = () => {
               </h1>
             </RoughNotationWrapper>
           </RoughNotationGroup>
-          <p className="leading-5 text-sm py-5">{contact.MOTTO}</p>
+          <Flip left>
+            <p className="leading-5 text-sm py-5">{contact.MOTTO}</p>
+          </Flip>
           <div className="w-[200px] py-5">
             <MediaIcons />
           </div>

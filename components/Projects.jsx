@@ -5,6 +5,7 @@ import { MOCKED_PROJECTS } from '../constants/projects';
 import { ProjectCard } from './ProjectCard';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 import { useIntersection } from 'react-use';
+import Fade from 'react-reveal/Fade';
 
 export const Projects = () => {
   const ref = useRef(null);
@@ -25,14 +26,16 @@ export const Projects = () => {
               </h1>
             </RoughNotationWrapper>
           </RoughNotationGroup>
-          <div className="py-5">
-            <p className="leading-5 text-sm">
-              Please find a selection of my work created in the past years.
-            </p>
-            <p className="leading-5 text-sm">
-              Click or tap for more details about each project.
-            </p>
-          </div>
+          <Fade left>
+            <div className="py-5">
+              <p className="leading-5 text-sm">
+                Please find a selection of my work created in the past years.
+              </p>
+              <p className="leading-5 text-sm">
+                Click or tap for more details about each project.
+              </p>
+            </div>
+          </Fade>
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 py-3 max-w-5xl mx-auto">

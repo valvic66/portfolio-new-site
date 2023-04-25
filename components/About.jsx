@@ -7,6 +7,7 @@ import { about } from '../constants/about';
 import { intersectionOptions } from '../constants';
 import { shimmer, toBase64 } from '../utils';
 import { useIntersection } from 'react-use';
+import Fade from 'react-reveal/Fade';
 
 export const About = () => {
   const ref = useRef(null);
@@ -27,7 +28,9 @@ export const About = () => {
               </h1>
             </RoughNotationWrapper>
           </RoughNotationGroup>
-          <p className="leading-5 text-sm py-5">{about.DESCRIPTION}</p>
+          <Fade left>
+            <p className="leading-5 text-sm py-5">{about.DESCRIPTION}</p>
+          </Fade>
           <div className="pb-6">
             <Link href="/#projects">
               <li className="underline text-sd text-gray-600 list-none">
