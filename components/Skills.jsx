@@ -14,7 +14,7 @@ import { RoughNotationGroup } from 'react-rough-notation';
 import { intersectionOptions } from '../constants';
 import { skills } from '../constants/skills';
 import { useIntersection } from 'react-use';
-import Fade from 'react-reveal/Fade';
+// import Fade from 'react-reveal/Fade';
 
 export const Skills = () => {
   const ref = useRef(null);
@@ -35,142 +35,58 @@ export const Skills = () => {
               </h1>
             </RoughNotationWrapper>
           </RoughNotationGroup>
-          <Fade left>
-            <p className="leading-5 text-sm py-5">{skills.DESCRIPTION}</p>
-          </Fade>
+          {/* <Fade left> */}
+          <p className="leading-5 text-sm py-5">{skills.DESCRIPTION}</p>
+          {/* </Fade> */}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 py-4">
           <div className="grid grid-cols-2 place-items-center bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'blue',
-                size: '64px',
-              }}
-            >
-              <FaHtml5 />
-            </IconContext.Provider>
+            <FaHtml5 className="text-blue-400 text-[64px]" />
             <p className="text-sm">HTML</p>
           </div>
           <div className="grid grid-cols-2 place-items-center bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'orange',
-                size: '64px',
-              }}
-            >
-              <FaCss3Alt />
-            </IconContext.Provider>
+            <FaCss3Alt className="text-orange-500 text-[64px]" />
             <p className="text-sm">CSS</p>
           </div>
           <div className="grid grid-cols-2 place-items-center bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'black',
-                size: '64px',
-              }}
-            >
-              <DiResponsive />
-            </IconContext.Provider>
+            <DiResponsive className="text-[64px]" />
             <p className="text-sm">Responsive Design</p>
           </div>
           <div className="grid grid-cols-2 place-items-center bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'blue',
-                size: '64px',
-              }}
-            >
-              <FaReact />
-            </IconContext.Provider>
+            <FaReact className="text-blue-500 text-[64px]" />
             <p className="text-sm">{'React & React Native'}</p>
           </div>
           <div className="grid grid-cols-2 place-items-center bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'orange',
-                size: '64px',
-              }}
-            >
-              <TbBrandJavascript />
-            </IconContext.Provider>
+            <TbBrandJavascript className="text-orange-500 text-[64px]" />
             <p className="text-sm">JavaScript</p>
           </div>
           <div className="grid grid-cols-2 place-items-center bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'black',
-                size: '64px',
-              }}
-            >
-              <FaGitAlt />
-            </IconContext.Provider>
+            <FaGitAlt className="text-[64px]" />
             <p className="text-sm">Git</p>
           </div>
           <div className="grid grid-cols-2 place-items-center  bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'black',
-                size: '64px',
-              }}
-            >
-              <VscDebugAll />
-            </IconContext.Provider>
+            <VscDebugAll className="text-[64px]" />
             <p className="text-sm">Debugging</p>
           </div>
           <div className="grid grid-cols-2 place-items-center  bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'red',
-                size: '64px',
-              }}
-            >
-              <SiTestinglibrary />
-            </IconContext.Provider>
+            <SiTestinglibrary className="text-red-500 text-[64px]" />
             <p className="text-sm">Testing</p>
           </div>
           <div className="grid grid-cols-2 place-items-center  bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'orange',
-                size: '64px',
-              }}
-            >
-              <ImAccessibility />
-            </IconContext.Provider>
+            <ImAccessibility className="text-orange-400 text-[64px]" />
             <p className="text-sm">Accessibility</p>
           </div>
           <div className="grid grid-cols-2 place-items-center  bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'black',
-                size: '64px',
-              }}
-            >
-              <CgPerformance />
-            </IconContext.Provider>
+            <CgPerformance className="text-[64px]" />
             <p className="text-sm">Web Performance</p>
           </div>
           <div className="grid grid-cols-2 place-items-center  bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'red',
-                size: '64px',
-              }}
-            >
-              <GrGraphQl />
-            </IconContext.Provider>
+            <GrGraphQl className="text-red-500 text-[64px]" />
             <p className="text-sm">GraphQL</p>
           </div>
           <div className="grid grid-cols-2 place-items-center  bg-white rounded-md py-1">
-            <IconContext.Provider
-              value={{
-                color: 'black',
-                size: '64px',
-              }}
-            >
-              <AiOutlineApi />
-            </IconContext.Provider>
+            <AiOutlineApi className="text-[64px]" />
             <p className="text-sm">Rest API</p>
           </div>
         </div>

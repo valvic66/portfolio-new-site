@@ -1,6 +1,6 @@
 import React from 'react';
 // import Image from 'next/image';
-import { shimmer, toBase64 } from '../utils';
+// import { shimmer, toBase64 } from '../utils';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
