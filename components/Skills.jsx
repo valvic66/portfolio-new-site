@@ -14,7 +14,7 @@ import { RoughNotationGroup } from 'react-rough-notation';
 import { intersectionOptions } from '../constants';
 import { skills } from '../constants/skills';
 import { useIntersection } from 'react-use';
-// import Fade from 'react-reveal/Fade';
+import { Slide } from 'react-awesome-reveal';
 
 export const Skills = () => {
   const ref = useRef(null);
@@ -35,9 +35,9 @@ export const Skills = () => {
               </h1>
             </RoughNotationWrapper>
           </RoughNotationGroup>
-          {/* <Fade left> */}
-          <p className="leading-5 text-sm py-5">{skills.DESCRIPTION}</p>
-          {/* </Fade> */}
+          <Slide triggerOnce duration={500}>
+            <p className="leading-5 text-sm py-5">{skills.DESCRIPTION}</p>
+          </Slide>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 py-4">

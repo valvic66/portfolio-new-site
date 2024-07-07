@@ -5,7 +5,6 @@ import { main } from '../constants/main';
 import { MediaIcons } from './MediaIcons';
 import { RoughNotationWrapper } from './RoughNotationWrapper';
 import { useIntersection } from 'react-use';
-// import Flip from 'react-reveal/Flip';
 
 export const Main = () => {
   const ref = useRef(null);
@@ -35,9 +34,7 @@ export const Main = () => {
             </RoughNotationWrapper>
           </RoughNotationGroup>
         </section>
-        {/* <Flip left> */}
         <p className="leading-5 text-sm">{main.DESCRIPTION}</p>
-        {/* </Flip> */}
         <section className="absolute top-[85%] landscape:hidden lg:landscape:block">
           <p className="pb-3 text-xs uppercase text-gray-500">
             {main.MEDIA_MOTTO}

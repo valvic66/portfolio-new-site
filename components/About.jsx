@@ -7,7 +7,7 @@ import { about } from '../constants/about';
 import { intersectionOptions } from '../constants';
 // import { shimmer, toBase64 } from '../utils';
 import { useIntersection } from 'react-use';
-// import Fade from 'react-reveal/Fade';
+import { Slide } from 'react-awesome-reveal';
 
 export const About = () => {
   const ref = useRef(null);
@@ -28,9 +28,9 @@ export const About = () => {
               </h1>
             </RoughNotationWrapper>
           </RoughNotationGroup>
-          {/* <Fade left> */}
-          <p className="leading-5 text-sm py-5">{about.DESCRIPTION}</p>
-          {/* </Fade> */}
+          <Slide triggerOnce duration={500}>
+            <p className="leading-5 text-sm py-5">{about.DESCRIPTION}</p>
+          </Slide>
           <div className="pb-6">
             <Link href="/#projects">
               <li className="underline text-sd text-gray-600 list-none">
